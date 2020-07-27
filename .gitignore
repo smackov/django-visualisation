@@ -6,4 +6,5 @@ djangovenv
 Additions
 db.sqlite3
 /static
+/main/migrations
 .DS_Store

@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      Visual!
+    </title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">    
+    <link rel="stylesheet" href="{% static '/css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <!-- Static navbar -->
+        <div class="navbar navbar-default" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="{% url 'index' %}">Visualisation</a>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li><a href="{% url 'add_track' %}">Add track</a></li>
+                <li><a href="{% url 'add_task' %}">Add task</a></li>
+                <li><a href="#">Add rate</a></li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div><!--/.container-fluid -->
+        </div>
+  
+        <!-- Main component for a primary marketing message or call to action -->
+        <div class="">
+          <h3>Today is {{ date }}</h3>
+          {% block content %}
+          {% endblock content %}
+        </div>
+    </div> <!-- /container -->
+</body>
+</html>
+
+

@@ -19,5 +19,6 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('/add_track', views.add_track, name='add_track')
+    path('add_task', views.add_task, name='add_task'),
+    path('add_track', views.add_track, name='add_track'),
 ]
