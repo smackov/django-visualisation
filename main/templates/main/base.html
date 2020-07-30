@@ -26,18 +26,34 @@
               <a class="navbar-brand" href="{% url 'index' %}">Visualisation</a>
             </div>
             <div class="navbar-collapse collapse">
+              
+              {% if user.is_authenticated %}
               <ul class="nav navbar-nav">
                 <li><a href="{% url 'add_track' %}">Add track</a></li>
                 <li><a href="{% url 'add_task' %}">Add task</a></li>
-                <li><a href="#">Add rate</a></li>
+                <li><a href="{% url 'add_rate' %}">Add rate</a></li>
               </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a>Hello, {{ user.username }}</a></li>
+                <li><a href="{% url 'logout' %}">Log out</a></li>
+              </ul>
+              {% else %}
+              <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="{% url 'login' %}">Login</a></li>
+              </ul>
+              {% endif %}
+
             </div><!--/.nav-collapse -->
           </div><!--/.container-fluid -->
         </div>
   
         <!-- Main component for a primary marketing message or call to action -->
         <div class="">
-          <h3>Today is {{ date }}</h3>
+          
+          {% if date %}
+            <h3>Today is {{ date }}</h3>
+          {% endif %}
+            
           {% block content %}
           {% endblock content %}
         </div>

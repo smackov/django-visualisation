@@ -22,6 +22,8 @@ class Track(models.Model):
     duration = models.IntegerField()
     id_rate = models.ForeignKey("Rate", on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.id} - ' + self.id_task.name + f' - {self.duration} pom-ro' + f' - {self.date}'
 
 
 

@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <div class="board">
+    <!--INSERT CELL FORM-->
+    <div class="general-cell">
+        <h4>Insert new rate</h4>
+        <form method="POST"> {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="save btn btn-default">Insert</button>
+        </form>
+    </div>
+
+    <div class="general-cell">
+        <h4>Rates</h4>
+        <ul>
+            {% for rate in rates %}
+                <li>{{ rate.name }} - rate: {{ rate.rate }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    </div>
+{% endblock content %}
+</html>
+
+

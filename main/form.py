@@ -1,5 +1,5 @@
 from django.forms import ModelForm, DateInput, Select, NumberInput
-from .models import Task, Track
+from .models import Task, Track, Rate
 
 from datetime import date
 
@@ -21,3 +21,8 @@ class TrackForm(ModelForm):
             'duration': NumberInput(attrs={'value': 1})
         }
 
+
+class RateForm(ModelForm):
+    class Meta:
+        model = Rate
+        fields = ['name', 'rate',]
