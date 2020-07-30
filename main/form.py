@@ -1,4 +1,4 @@
-from django.forms import ModelForm, DateInput, Select, NumberInput
+from django.forms import ModelForm, DateInput, Select, NumberInput, BaseModelFormSet
 from .models import Task, Track, Rate
 
 from datetime import date
@@ -10,6 +10,12 @@ class TaskForm(ModelForm):
 
 
 class TrackForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
+        super().__init__(*args, **kwargs)
+        self.fields['id_task'].queryset = Task.objects.filter(author=user)
+
     class Meta:
         model = Track
         fields = ['id_task', 'duration', 'id_rate', 'date',]

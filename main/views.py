@@ -21,9 +21,11 @@ def add_task(request):
     if request.method == 'POST':
         form = TaskForm(request.POST) 
         if form.is_valid():
-            form.save()
+            task = form.save(commit=False)
+            task.author = request.user
+            task.save()
     form = TaskForm()
-    tasks = Task.objects.all()
+    tasks = Task.objects.filter(author=request.user)
     context = {
         'form': form,
         'tasks': tasks,
@@ -34,12 +36,14 @@ def add_task(request):
 @login_required
 def add_track(request):
     if request.method == 'POST':
-        form = TrackForm(request.POST)
+        form = TrackForm(request.POST, user=request.user)
         if form.is_valid():
-            form.save()
-    form = TrackForm()
-    tracks = Track.objects.order_by('-date')
-    tasks = Task.objects.all()
+            track = form.save(commit=False)
+            track.author = request.user
+            track.save()
+    form = TrackForm(user=request.user)
+    tracks = Track.objects.filter(author=request.user).order_by('-date')
+    tasks = Task.objects.filter(author=request.user)
     context = {
         'form': form,
         'tracks': tracks,
