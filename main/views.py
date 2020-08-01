@@ -2,17 +2,22 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .form import TaskForm, TrackForm, RateForm
 from .models import Task, Track, Rate
+from .services import get_week_information
 
 from datetime import date
 
 # Create your views here.
 def date_today():
     return date.today().strftime('%A %d %B')
+def number_day():
+    return date.today().toordinal() - date(date.today().year, 1, 1).toordinal() + 1
 
 
 def index(request):
     context = {
         'date': date_today(),
+        'number_day': number_day(),
+        'week_information': get_week_information(request.user),
     }
     return render(request, 'main/index.html', context)
 
@@ -30,6 +35,7 @@ def add_task(request):
         'form': form,
         'tasks': tasks,
         'date': date_today(),
+        'number_day': number_day(),
     }
     return render(request, 'main/add_task.html', context)
 
@@ -49,6 +55,7 @@ def add_track(request):
         'tracks': tracks,
         'tasks': tasks,
         'date': date_today(),
+        'number_day': number_day(),
     }
     return render(request, 'main/add_track.html', context)
 
@@ -65,5 +72,6 @@ def add_rate(request):
         'form': form,
         'rates': rates,
         'date': date_today(),
+        'number_day': number_day(),
     }
     return render(request, 'main/add_rate.html', context)

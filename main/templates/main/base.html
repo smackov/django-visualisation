@@ -7,6 +7,7 @@
     <title>
       Visual!
     </title>
+    <link rel="shortcut icon" href="{% static 'favicon/favicon.png' %}"/>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">    
     <link rel="stylesheet" href="{% static '/css/style.css' %}">
@@ -51,7 +52,7 @@
         <div class="">
           
           {% if date %}
-            <h3>Today is {{ date }}</h3>
+            <h3>Today is {{ date }} - {{ number_day }} day of year</h3>
           {% endif %}
             
           {% block content %}

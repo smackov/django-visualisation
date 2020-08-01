@@ -50,7 +50,7 @@ body {
     position: absolute;
     border-radius: 20px;
     z-index: -1;
-    width: 200px;
+    /* width: 200px; */
     background: repeating-linear-gradient(
         45deg,
         #d7ebf5 0px,

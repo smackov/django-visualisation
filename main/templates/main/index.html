@@ -3,12 +3,15 @@
 {% block content %}
     
     <!--WEEK VISUALISATION PROCENT BOARD-->
+    <p>Hi, {{ week_information }}</p>
+    <p>{{ week_information.worked_time.hours }}</p>
+    <p>{{ week_information.status_complete }}</p>
     <div class="general-cell">
         <h2>Week visualisation</h2>
         <div class="box-of-line-procentage-of-week-implementation">
-            <p>77%</p>
+            <p>{{ week_information.status_complete }}%</p>
             <div class="body-of line-procentage-of-week-implementation"></div>
-            <div class="covered-part-of line-procentage-of-week-implementation"></div>
+            <div class="covered-part-of line-procentage-of-week-implementation" style="width: {{ week_information.status_complete_css }}%"></div>
         </div>
     </div>
     <!--LIST TASKS FOR WEEK-->
