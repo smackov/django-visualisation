@@ -4,6 +4,8 @@ from datetime import date, timedelta
 
 
 def get_week_information(user, added_date=None):
+    if not user.is_authenticated:
+        return None
     period_week = get_period_week(added_date)
     tracks = Track.objects.filter(
         date__gte=period_week['first_day']
@@ -12,13 +14,7 @@ def get_week_information(user, added_date=None):
     ).filter(
         author=user
     )
-    worked_time = tracks.aggregate(Sum('duration'))['duration__sum']
-    worked_time_in_hours = transfer_to_hours(worked_time)
-    status_complete = worked_time / 60 * 100
-    if status_complete > 100: 
-        status_complete_css = 100
-    else:
-        status_complete_css = status_complete
+    worked_time_in_hours, status_complete, status_complete_css = get_work_info(tracks)
     context = {
         'tracks': tracks, 
         'worked_time': worked_time_in_hours, 
@@ -26,6 +22,18 @@ def get_week_information(user, added_date=None):
         'status_complete_css': toFixed(status_complete_css, digits=0),
     }
     return context
+
+def get_work_info(tracks):
+    worked_time = tracks.aggregate(Sum('duration'))['duration__sum']
+    if worked_time == None:
+        worked_time = 0
+    worked_time_in_hours = pomodoros_to_hours(worked_time)
+    status_complete = worked_time / 60 * 100
+    if status_complete > 100: 
+        status_complete_css = 100
+    else:
+        status_complete_css = status_complete
+    return worked_time_in_hours, status_complete, status_complete_css
 
 
 def get_period_week(added_date):
@@ -36,7 +44,7 @@ def get_period_week(added_date):
     return {'first_day': first_day, 'last_day': last_day}
 
 
-def transfer_to_hours(pomodoros):
+def pomodoros_to_hours(pomodoros):
     hours = pomodoros // 2
     minutes = pomodoros % 2 * 30
     return {'hours': hours, 'minutes': minutes}

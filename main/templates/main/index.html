@@ -2,6 +2,7 @@
 
 {% block content %}
     
+    {% if user.is_authenticated %}
     <!--WEEK VISUALISATION PROCENT BOARD-->
     <p>Hi, {{ week_information }}</p>
     <p>{{ week_information.worked_time.hours }}</p>
@@ -14,6 +15,8 @@
             <div class="covered-part-of line-procentage-of-week-implementation" style="width: {{ week_information.status_complete_css }}%"></div>
         </div>
     </div>
+    {% endif %}
+
     <!--LIST TASKS FOR WEEK-->
     <div class="general-cell">
         <h2>List tasks for Week #28: 06 July - 12 July 2020</h2>
