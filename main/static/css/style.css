@@ -1,8 +1,12 @@
 body {
     align-content: center;
-    font-size: 13px;
+    font-size: 15px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     background: rgb(243, 243, 243);
+}
+
+.bold {
+    font-weight: 600;
 }
 
 .general-cell {
@@ -29,7 +33,6 @@ body {
 /* WEEK VISUALISATION PROCENT BOARD */
 .box-of-line-procentage-of-week-implementation {
     position: relative;
-    float: left;
     width: 300px;
     height: 70px;
 }
@@ -63,9 +66,13 @@ body {
 .box-of-line-procentage-of-week-implementation p {
     position: absolute;
     width: 0px;
-    left: 150px;
-    top: 15px;
+    left: 130px;
+    top: 4px;
     font-size: 20px;
     color: #233843;
     font-weight: 600;
+}
+
+.under-week-status {
+    margin-top: 15px;
 }

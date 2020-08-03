@@ -1,16 +1,16 @@
-from django.db.models import Sum
-from .models import Track
+from django.db.models import Sum, Avg
+from .models import Track, Task
 from datetime import date, timedelta
 
 
 def get_week_information(user, added_date=None):
     if not user.is_authenticated:
         return None
-    period_week = get_period_week(added_date)
+    week_date = get_period_week(added_date)
     tracks = Track.objects.filter(
-        date__gte=period_week['first_day']
+        date__gte=week_date['first_day']
     ).exclude(
-        date__gte=period_week['last_day']
+        date__gte=week_date['last_day']
     ).filter(
         author=user
     )
@@ -20,8 +20,38 @@ def get_week_information(user, added_date=None):
         'worked_time': worked_time_in_hours, 
         'status_complete': toFixed(status_complete, digits=0),
         'status_complete_css': toFixed(status_complete_css, digits=0),
+        'date': week_date,
+        'days': tracks_of_days(tracks, week_date)
     }
     return context
+
+
+def tracks_of_days(tracks, week_date):
+    tracks_of_days = []
+    day = week_date['first_day']
+    while day != week_date['last_day']:
+        tracks_of_day = []
+        number = 1
+        day_tracks = tracks.filter(
+            date__gte=day
+        ).exclude(
+            date__gte=day + timedelta(days=1)
+        ).values('id_task').annotate(sum_duration=Sum('duration')).order_by('-sum_duration')
+        for track in day_tracks:
+            tracks_of_day.append({
+                'number': number, 
+                'track': track,
+                'task': Task.objects.get(id=track['id_task']),
+                'duration': pomodoros_to_hours(track['sum_duration'])
+                })
+            number += 1
+        tracks_of_days.append({
+            'date': day,
+            'tracks': tracks_of_day,
+            'worked_time': pomodoros_to_hours(day_tracks.aggregate(sum=Sum('duration'))['sum'])
+            })
+        day += timedelta(days=1)
+    return tracks_of_days
 
 def get_work_info(tracks):
     worked_time = tracks.aggregate(Sum('duration'))['duration__sum']
@@ -45,8 +75,11 @@ def get_period_week(added_date):
 
 
 def pomodoros_to_hours(pomodoros):
-    hours = pomodoros // 2
-    minutes = pomodoros % 2 * 30
+    if pomodoros:
+        hours = pomodoros // 2
+        minutes = pomodoros % 2 * 30
+    else:
+        hours, minutes = 0, 0
     return {'hours': hours, 'minutes': minutes}
 
 

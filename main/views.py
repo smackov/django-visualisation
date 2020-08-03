@@ -17,7 +17,7 @@ def index(request):
     context = {
         'date': date_today(),
         'number_day': number_day(),
-        'week_information': get_week_information(request.user),
+        'week_data': get_week_information(request.user),
     }
     return render(request, 'main/index.html', context)
 

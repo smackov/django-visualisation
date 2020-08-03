@@ -4,37 +4,61 @@
     
     {% if user.is_authenticated %}
     <!--WEEK VISUALISATION PROCENT BOARD-->
-    <p>Hi, {{ week_information }}</p>
-    <p>{{ week_information.worked_time.hours }}</p>
-    <p>{{ week_information.status_complete }}</p>
     <div class="general-cell">
-        <h2>Week visualisation</h2>
+        <h3>Week status</h3>
         <div class="box-of-line-procentage-of-week-implementation">
-            <p>{{ week_information.status_complete }}%</p>
+            <p>
+                {{ week_data.status_complete }}%
+                {{ week_data.worked_time.hours }}/30h
+            </p>
             <div class="body-of line-procentage-of-week-implementation"></div>
-            <div class="covered-part-of line-procentage-of-week-implementation" style="width: {{ week_information.status_complete_css }}%"></div>
+            <div class="covered-part-of line-procentage-of-week-implementation" style="width: {{ week_data.status_complete_css }}%"></div>
+        </div>
+        <div class='under-week-status'>
+            <p>
+                You have covered {{ week_data.worked_time.hours }} hours
+                and {{ week_data.worked_time.minutes }} minutes on this week!
+            </p>
+            <p>
+                Your goal: 30 hours per week!
+            </p>
         </div>
     </div>
     {% endif %}
 
     <!--LIST TASKS FOR WEEK-->
     <div class="general-cell">
-        <h2>List tasks for Week #28: 06 July - 12 July 2020</h2>
+        <h3>List tasks: {{ week_data.date.first_day.day }} - {{ week_data.date.last_day }}</h3>
         <ul>
-            <li><h4>Monday 06 July</h4>
-                <p>1 Python general : 300 minutes<br>
-                    2 Learning words : 30 minutes <br>
-                    3 Learning video : 30 minutes <br>
-                    4 Learning grammar : 30 minutes <br> <br>
-                    Total time: 6 hours 30 min </p> <hr>
-            </li>
-            <li><h4>Tuesday 07 July</h4>
-                <p>
-                    1 Tasks : 360 minutes <br>
-                    2 Learning words : 30 minutes <br> <br>
-                    Total time: 6 hours 30 min
-                </p> <hr>
-            </li>
+            {% for day in week_data.days %}
+                <li><h4 class="bold">{{ day.date }}</h4>
+                    {% if day.tracks %}
+                    <p>
+                        {% for track in day.tracks %}
+                            {% if track %}
+                                {{ track.number }} {{ track.task }}: 
+                                {% if track.duration.hours %}
+                                    {{ track.duration.hours }} h 
+                                {% endif %}
+                                {% if track.duration.minutes %}
+                                    {{ track.duration.minutes }} min 
+                                {% endif %}
+                            {% endif %}
+                            <br>
+                        {% endfor %}
+                        <br><strong>Total time: 
+                            {% if day.worked_time.hours %}
+                                {{ day.worked_time.hours }} h 
+                            {% endif %}
+                            {% if day.worked_time.minutes %}
+                                {{ day.worked_time.minutes }} min 
+                            {% endif %}</strong>
+                    </p><hr>
+                    {% else %}
+                    <p>No tracks</p><hr>
+                </li>
+                    {% endif %}
+            {% endfor %}
         </ul>
     </div>
 {% endblock content %}
