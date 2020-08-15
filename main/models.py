@@ -10,7 +10,7 @@ class Task(models.Model):
         return self.name
 
     class Meta:
-        ordering = ['name']
+        ordering = ['author', 'name']
 
 
 class Rate(models.Model):
@@ -23,10 +23,13 @@ class Rate(models.Model):
     
 class Track(models.Model):
     date = models.DateField()
-    id_task = models.ForeignKey("Task", on_delete=models.CASCADE)
-    duration = models.IntegerField()
-    id_rate = models.ForeignKey("Rate", on_delete=models.CASCADE)
+    id_task = models.ForeignKey("Task", on_delete=models.CASCADE, verbose_name='Task')
+    duration = models.IntegerField(default=1)
+    id_rate = models.ForeignKey("Rate", on_delete=models.CASCADE, verbose_name='Rate')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ('date', 'author', 'id_task')
 
     def __str__(self):
         return f'{self.id} - ' + self.id_task.name + f' - {self.duration} pom-ro' + f' - {self.date}'
