@@ -73,6 +73,18 @@ def get_period_week(added_date):
     last_day = first_day + timedelta(days=7)
     return {'first_day': first_day, 'last_day': last_day}
 
+#2
+def days_of_week(added_date):
+    if not added_date:
+        added_date = date.today()
+    days = []
+    day = added_date - timedelta(days=added_date.weekday())
+    for i in range(7):
+        days.append(day)
+        day += timedelta(days=1)
+    return days
+
+
 
 def pomodoros_to_hours(pomodoros):
     if pomodoros:
