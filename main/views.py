@@ -21,6 +21,9 @@ def index(request):
     }
     return render(request, 'main/index.html', context)
 
+def indexv2(request):
+    return render(request, 'mainv2/index.html')
+
 @login_required
 def add_task(request):
     if request.method == 'POST':
