@@ -27,13 +27,17 @@ def index(request):
 
 def indexv2(request):
     context = {
-        'date': date_today(),
-        'number_day': number_day(),
-        'week_data': get_week_information(request.user),
-        'last_weeks': get_last_four_weeks(request.user),
-        # 'statistic': get_statistic(request.user),
-    }
-    print(context)
+            'date': date_today(),
+            'number_day': number_day(),
+        }
+    if request.user.is_authenticated:
+        context = {
+            'date': date_today(),
+            'number_day': number_day(),
+            'week_data': get_week_information(request.user),
+            'last_weeks': get_last_four_weeks(request.user),
+            # 'statistic': get_statistic(request.user),
+        }
     return render(request, 'mainv2/index.html', context)
 
 @login_required
