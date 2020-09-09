@@ -2,7 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .form import TaskForm, TrackForm, RateForm
 from .models import Task, Track, Rate
-from .services import get_week_information
+from .services import (
+    get_week_information, 
+    get_last_four_weeks,
+    get_statistic,
+)
 
 from datetime import date
 
@@ -22,11 +26,14 @@ def index(request):
     return render(request, 'main/index.html', context)
 
 def indexv2(request):
-    context = {
-        'date': date_today(),
-        'number_day': number_day(),
-        'week_data': get_week_information(request.user),
-    }
+    if request.user.is_authenticated:
+        context = {
+            'date': date_today(),
+            'number_day': number_day(),
+            'week_data': get_week_information(request.user),
+            'last_weeks': get_last_four_weeks(request.user),
+            # 'statistic': get_statistic(request.user),
+        }
     return render(request, 'mainv2/index.html', context)
 
 @login_required

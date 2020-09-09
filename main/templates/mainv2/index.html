@@ -13,9 +13,11 @@
                 <h4 class="text-center mb-4">Week status</h4>
                 <div class="progress" style="height: 25px;">
                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">75 %</div>
+                        aria-valuenow="{{ week_data.status_complete_css }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ week_data.status_complete_css }}%">
+                            {{ week_data.status_complete }}%
+                    </div>
                 </div>
-                <p class="text-center my-1">{ 25 of 30 hours }</p>
+                <p class="text-center my-1">{ {{ week_data.worked_time.hours }} of 30 hours }</p>
 
             </div>
             <!-- END WEEK STATUS -->
@@ -25,86 +27,36 @@
                 <h4 class="text-center mb-4">Last 4 weeks</h4>
                 <div class="d-flex flex-column">
 
-                    <!-- week 1 -->
+                    <!-- weeks -->
+                    
+                    {% if last_weeks %}
+                        
+                    {% for week in last_weeks %}
                     <div class="d-flex flex-row">
                         <div class="w-50">
                             <div class="progress" style="height: 25px;">
                                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">100 %
+                                    aria-valuenow="{{ week.status_complete_css }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ week.status_complete_css }}%">{{ week.status_complete }} %
                                 </div>
                             </div>
                         </div>
                         <div class="w-50 d-flex flex-row">
                             <div style="width: 15%">
-                                <p class="text-right">🔥</p>
+                                <p class="text-right">{{ week.emoji }}</p>
                             </div>
-                            <div style="width: 85%">
-                                <p class="text-right">12-19 august</p>
+                            <div style="width: 20%">
+                                <p class="text-right">{{ week.worked_time.hours }} h</p>
                             </div>
-                        </div>
-                    </div>
-                    <!-- end week 1 -->
-
-                    <!-- week 2 -->
-                    <div class="d-flex flex-row">
-                        <div class="w-50">
-                            <div class="progress" style="height: 25px;">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">75 %
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-50 d-flex flex-row">
-                            <div style="width: 15%">
-                                <p class="text-right">😥</p>
-                            </div>
-                            <div style="width: 85%">
-                                <p class="text-right">5-18 august</p>
+                            <div style="width: 65%">
+                                <p class="text-right">{{ week.first_day.day }} - {{ week.last_day }}</p>
                             </div>
                         </div>
                     </div>
-                    <!-- end week 2 -->
+                    {% endfor %}
 
-                    <!-- week 3 -->
-                    <div class="d-flex flex-row">
-                        <div class="w-50">
-                            <div class="progress" style="height: 25px;">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">50 %
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-50 d-flex flex-row">
-                            <div style="width: 15%">
-                                <p class="text-right">😫</p>
-                            </div>
-                            <div style="width: 85%">
-                                <p class="text-right">28 july - 5 august</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end week 3 -->
+                    {% endif %}
 
-                    <!-- week 4 -->
-                    <div class="d-flex flex-row">
-                        <div class="w-50">
-                            <div class="progress" style="height: 25px;">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                    aria-valuenow="140" aria-valuemin="0" aria-valuemax="100" style="width: 100%">140 %
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-50 d-flex flex-row">
-                            <div style="width: 15%">
-                                <p class="text-right">🤩</p>
-                            </div>
-                            <div style="width: 85%">
-                                <p class="text-right">12-21 august</p>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- end week 4 -->
+                    <!-- weeks -->
 
                 </div>
             </div>
@@ -120,7 +72,7 @@
                             <p class="my-0">Total worked per <span class="badge badge-success">week</span>:</p>
                         </div>
                         <div class="w-25">
-                            <p class="my-0"><strong>25</strong> h.</p>
+                            <p class="my-0"><strong>{{ week_data.worked_time.hours }}</strong> h.</p>
                         </div>
                     </div>
                     <div class="d-flex flex-row">
