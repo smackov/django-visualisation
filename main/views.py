@@ -22,7 +22,12 @@ def index(request):
     return render(request, 'main/index.html', context)
 
 def indexv2(request):
-    return render(request, 'mainv2/index.html')
+    context = {
+        'date': date_today(),
+        'number_day': number_day(),
+        'week_data': get_week_information(request.user),
+    }
+    return render(request, 'mainv2/index.html', context)
 
 @login_required
 def add_task(request):
