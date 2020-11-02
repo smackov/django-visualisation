@@ -22,5 +22,4 @@ urlpatterns = [
     path('add_task', views.add_task, name='add_task'),
     path('add_track', views.add_track, name='add_track'),
     path('add_rate', views.add_rate, name='add_rate'),
-    path('v2/', views.indexv2, name='indexv2'),
 ]

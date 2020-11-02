@@ -5,27 +5,19 @@ from .models import Task, Track, Rate
 from .services import (
     get_week_information, 
     get_last_four_weeks,
-    get_statistic,
+    # get_statistic,
 )
 
 from datetime import date
 
-# Create your views here.
 def date_today():
     return date.today().strftime('%A %d %B')
+
 def number_day():
     return date.today().toordinal() - date(date.today().year, 1, 1).toordinal() + 1
 
 
 def index(request):
-    context = {
-        'date': date_today(),
-        'number_day': number_day(),
-        'week_data': get_week_information(request.user),
-    }
-    return render(request, 'main/index.html', context)
-
-def indexv2(request):
     context = {
             'date': date_today(),
             'number_day': number_day(),
@@ -36,9 +28,9 @@ def indexv2(request):
             'number_day': number_day(),
             'week_data': get_week_information(request.user),
             'last_weeks': get_last_four_weeks(request.user),
-            # 'statistic': get_statistic(request.user),
+            # 'statistic': get_work_time_statistic(request.user),
         }
-    return render(request, 'mainv2/index.html', context)
+    return render(request, 'main/index.html', context)
 
 @login_required
 def add_task(request):

@@ -22,7 +22,7 @@
     <header class="navbar navbar-expand-lg sticky-top bg-main navbar-dark py-0">
 
         <!--Logo-->
-        <a class="navbar-brand" href="#"><i class="fas fa-dragon"></i> Visualisation</a>
+        <a class="navbar-brand" href="{% url 'index' %}"><i class="fas fa-dragon"></i> Visualization</a>
 
         <!-- Toggler/collapsible Button -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -39,9 +39,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'add_task' %}">/add task</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">/add goal</a>
                 </li>
             </ul>
             {% endif %}

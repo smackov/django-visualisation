@@ -1,26 +1,27 @@
-{% extends 'main/base.html' %}
+{% extends 'main/base_generic.html' %}
 
 {% block content %}
     <!--INSERT CELL FORM-->
-    <div class="general-cell">
-        <h2>Insert track</h2>
+<div class="row mt-3 border">
+
+    <div class="col-lg-4">
+        <h4>Insert track</h4>
         <form method='POST'> {% csrf_token %}
             {{ form.as_p }}
-            <button class="btn submit btn-default">Insert</button>
+            <button class="btn submit btn-primary">Insert</button>
         </form>
     </div>
 
-    <div class="general-cell">
-        <h2>Tracking</h2>
+    <div class="col-lg-8">
+        <h4>Tracking</h4>
         <ul>
             {% for track in tracks %}
                 <li>{{ track.date }} - {{ track.id_task }} - {{ track.duration }} pomodoro - {{ track.id_rate }}</li>
             {% endfor %}
-                
         </ul>
     </div>
-    
+
+</div>
 {% endblock content %}
-</html>
 
 

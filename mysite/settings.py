@@ -19,11 +19,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '!xe-=7gdfu()w1a^eu8n5*0x_&&hio*9s3!z81=1wq(v**bu=r'
+# SECRET_KEY = '*m#tug1r=#s9qf-p^)5m8(51j-s#r8rlohu=fy1)pq!0*p_$cg'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '*m#tug1r=#s9qf-p^)5m8(51j-s#r8rlohu=fy1)pq!0*p_$cg')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
 
@@ -55,7 +58,9 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
