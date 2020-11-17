@@ -1,34 +1,52 @@
+from datetime import date
+
 from django.forms import ModelForm, DateInput, Select, NumberInput, BaseModelFormSet
+# from django.forms import IntegerField, ChoiceField
+from django.utils.translation import gettext_lazy as _
+
 from .models import Task, Track, Rate
 
-from datetime import date
 
 class TaskForm(ModelForm):
     class Meta:
         model = Task
-        fields = ['name',]
+        fields = ['name', ]
 
 
 class TrackForm(ModelForm):
+    
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
         self.fields['id_task'].queryset = Task.objects.filter(author=user)
+        print(Task.objects.filter(author=user))
+        # self.initial['id_task'] = 'default value'
 
     class Meta:
         model = Track
-        fields = ['id_task', 'duration', 'id_rate', 'date',]
-        today = date.today().isoformat()
+        fields = ('id_task', 'duration', 'id_rate', 'date')
         widgets = {
-            'id_task': Select(attrs={'size': Task.objects.count()+1, 'autofocus': 1}),
-            'id_rate': Select(attrs={'size': 4}),
-            'date': DateInput(attrs={'type': 'date', 'value': today}),
-            'duration': NumberInput(attrs={'value': 1})
+            'id_task': Select(
+                attrs={'class': 'form-control',
+                       'autofocus': 1, 
+                       'placeholder': 'Pomodoros'}),
+            'duration': NumberInput(
+                attrs={'class': 'form-control',
+                       'min': 1, 'max': 20,
+                       'value': False,
+                       'class': 'form-control',
+                       'placeholder': 'Pomodoros'}),
+            'id_rate': Select(
+                attrs={'class': 'form-control'}), 
+            'date': DateInput(
+                attrs={'class': 'form-control',
+                       'type': 'date',
+                       'value': date.today().isoformat()}),
         }
 
 
 class RateForm(ModelForm):
     class Meta:
         model = Rate
-        fields = ['name', 'rate',]
+        fields = ['name', 'rate', ]

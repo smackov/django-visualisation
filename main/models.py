@@ -24,7 +24,7 @@ class Rate(models.Model):
 class Track(models.Model):
     date = models.DateField()
     id_task = models.ForeignKey("Task", on_delete=models.CASCADE, verbose_name='Task')
-    duration = models.IntegerField(default=1)
+    duration = models.IntegerField()
     id_rate = models.ForeignKey("Rate", on_delete=models.CASCADE, verbose_name='Rate')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 

@@ -1,5 +1,8 @@
+from datetime import date
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+
 from .form import TaskForm, TrackForm, RateForm
 from .models import Task, Track, Rate
 from .services import (
@@ -9,18 +12,9 @@ from .services import (
     UserTracks,
 )
 
-from datetime import date
-
-
-def date_today():
-    return date.today().strftime('%A %d %B')
-
-
-def number_day():
-    return date.today().toordinal() - date(date.today().year, 1, 1).toordinal() + 1
-
 
 def index(request):
+    "The general page with common statistic."
 
     context = {
         'date': date_today(),
@@ -64,19 +58,20 @@ def add_task(request):
 
 @login_required
 def add_track(request):
+    
     if request.method == 'POST':
         form = TrackForm(request.POST, user=request.user)
         if form.is_valid():
             track = form.save(commit=False)
             track.author = request.user
             track.save()
+            
     form = TrackForm(user=request.user)
-    tracks = Track.objects.filter(author=request.user).order_by('-date')
-    tasks = Task.objects.filter(author=request.user)
+    tracks = Track.objects.filter(author=request.user).order_by('-id')[:10]
+    
     context = {
         'form': form,
         'tracks': tracks,
-        'tasks': tasks,
         'date': date_today(),
         'number_day': number_day(),
     }
@@ -98,3 +93,30 @@ def add_rate(request):
         'number_day': number_day(),
     }
     return render(request, 'main/add_rate.html', context)
+
+
+# SUPPORT FUNCTIONS
+
+
+def date_today():
+    """It return a date in accurate for pages format
+    
+    date_today() --> 'Saturday 14 November'
+    """
+    return date.today().strftime('%A %d %B')
+
+
+def number_day():
+    """The number day of year
+    
+    if today 01.01.2020 (the first day of year)
+    number_day() --> 1
+    
+    if today 05.07.2020 (the arbitrary day of year)
+    number_day() --> 187
+    
+    if today 31.12.2020 (the last day of year)
+    number_day() --> 366 (leap year)
+    """
+    return (date.today().toordinal() -
+            date(date.today().year, 1, 1).toordinal() + 1)

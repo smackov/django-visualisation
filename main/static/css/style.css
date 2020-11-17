@@ -1,78 +1,28 @@
-body {
-    align-content: center;
-    font-size: 15px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    background: rgb(243, 243, 243);
+:root {
+    --main-color: rgb(12, 6, 36);
+    --bg-light: #fff;
 }
 
-.bold {
-    font-weight: 600;
+.bg-main {
+    background-color: var(--main-color);
 }
 
-.general-cell {
-    border: 2px solid rgb(66, 126, 150);
-    border-radius: 15px;
-    padding: 20px;
-    float: left;
-    margin: 20px 20px 0 0;
+.navbar-nav li a:hover {
+    color: var(--main-color) !important;
+    /* text-decoration: none; */
+    background: var(--bg-light);
 }
 
-/* INSERT CELL FORM */
-.form {
-    float: left;
-    margin-right: 20px;
-    border: 1px solid rgb(66, 126, 150);
-    border-radius: 15px;
-    padding: 5px;
+.clue {
+    margin-left: 0.25rem;
+    font-size: 0.9rem;
+    color: #666666;
 }
 
-.form h3 {
-    margin: 0 0 0 0;
+.table-form {
+    line-height: 0.8;
 }
 
-/* WEEK VISUALISATION PROCENT BOARD */
-.box-of-line-procentage-of-week-implementation {
-    position: relative;
-    width: 300px;
-    height: 70px;
-}
-
-.line-procentage-of-week-implementation {
-    width: 300px;
-    height: 70px;
-}
-
-.body-of {
-    position: absolute;
-    border: 2px solid #3d6276;
-    border-radius: 20px;
-    z-index: 2;
-}
-
-.covered-part-of {
-    position: absolute;
-    border-radius: 20px;
-    z-index: -1;
-    /* width: 200px; */
-    background: repeating-linear-gradient(
-        45deg,
-        #d7ebf5 0px,
-        #d7ebf5 15px,
-        #abc5d4 15px,
-        #abc5d4 30px
-    );
-}
-
-.box-of-line-procentage-of-week-implementation p {
-    position: absolute;
-    width: 0px;
-    left: 130px;
-    top: 4px;
-    font-size: 20px;
-    color: #233843;
-    font-weight: 600;
-}
-
-.under-week-status {
-    margin-top: 15px;
+.table-head {
+    background-color: rgb(241, 241, 241);
 }
