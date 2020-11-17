@@ -1,6 +1,6 @@
 from datetime import date
 
-from django.forms import ModelForm, DateInput, Select, NumberInput, BaseModelFormSet
+from django.forms import ModelForm, DateInput, Select, NumberInput, BaseModelFormSet, TextInput
 # from django.forms import IntegerField, ChoiceField
 from django.utils.translation import gettext_lazy as _
 
@@ -11,6 +11,12 @@ class TaskForm(ModelForm):
     class Meta:
         model = Task
         fields = ['name', ]
+        widgets = {
+            'name': TextInput(
+                attrs={'class': 'form-control',
+                       'autofocus': 1, 
+                       'placeholder': 'A new task ...'})
+        }
 
 
 class TrackForm(ModelForm):
