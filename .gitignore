@@ -1,11 +1,9 @@
 *.pyc
 *~
-/.vscode
 __pycache__
 djangovenv
 Additions
 db.sqlite3
 /static
 /main/migrations
-.DS_Store
 /favicon_io
