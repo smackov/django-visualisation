@@ -9,8 +9,8 @@ from .services import (
     get_week_information,
     get_last_four_weeks,
     # get_statistic,
-    UserTracks,
 )
+from .user_tracks import UserTracks
 
 
 def index(request):
