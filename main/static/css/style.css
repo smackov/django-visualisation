@@ -26,3 +26,7 @@
 .table-head {
     background-color: rgb(241, 241, 241);
 }
+
+.shadow-text {
+    text-shadow: 0 0 6px black;
+}

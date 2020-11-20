@@ -11,10 +11,11 @@
             <!-- WEEK STATUS -->
             <div class="col-lg-3">
                 <h4 class="text-center mb-4">Week status</h4>
-                <div class="progress" style="height: 25px;">
+                <div class="progress position-relative" style="height: 25px;">
                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                         aria-valuenow="{{ week_data.status_complete_css }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ week_data.status_complete_css }}%">
-                            {{ week_data.status_complete }}%
+                        <span class="justify-content-center d-flex position-absolute w-100 shadow-text">{{ week_data.status_complete }} %</span>
+
                     </div>
                 </div>
                 <p class="text-center my-1">{ {{ week_data.worked_time.hours }} of 30 hours }</p>
@@ -34,9 +35,10 @@
                     {% for week in last_weeks %}
                     <div class="d-flex flex-row">
                         <div class="w-50">
-                            <div class="progress" style="height: 25px;">
+                            <div class="progress position-relative" style="height: 25px;">
                                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                    aria-valuenow="{{ week.status_complete_css }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ week.status_complete_css }}%">{{ week.status_complete }} %
+                                    aria-valuenow="{{ week.status_complete_css }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ week.status_complete_css }}%">
+                                    <span class="justify-content-center d-flex position-absolute w-100 shadow-text">{{ week.status_complete }} %</span>
                                 </div>
                             </div>
                         </div>
