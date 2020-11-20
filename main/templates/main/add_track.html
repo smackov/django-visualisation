@@ -1,27 +1,88 @@
 {% extends 'main/base_generic.html' %}
 
+
+{% block title %}
+    <title>Add track</title>
+{% endblock title %}
+
+
 {% block content %}
-    <!--INSERT CELL FORM-->
+<!--INSERT CELL FORM-->
 <div class="row mt-3 border">
 
-    <div class="col-lg-4">
-        <h4>Insert track</h4>
-        <form method='POST'> {% csrf_token %}
-            {{ form.as_p }}
-            <button class="btn submit btn-primary">Insert</button>
+    <div class="col-lg-4 border">
+        <form method='POST' class="form-track mt-2 mb-2">
+            <div class="form-group">
+                <h4 class="text-center">Insert track</h4>
+            </div>
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+            <!-- TASK -->
+            <div class="form-group">
+                {{ form.id_task.errors }}
+                <label for="{{ form.id_task.id_for_label }}">Choose task:</label>
+                {{ form.id_task }}
+            </div>
+            <!-- DURATION -->
+            <div class="form-group">
+                {{ form.id_task.errors }}
+                <label for="{{ form.duration.id_for_label }}">
+                    Duration of the task
+                    <span class="text-secondary">(in pomodoros)</span>
+                    :
+                </label>
+                {{ form.duration }}
+            </div>
+            <!-- RATE -->
+            <div class="form-group">
+                {{ form.id_rate.errors }}
+                <label for="{{ form.id_rate.id_for_label }}">Choose rate:</label>
+                {{ form.id_rate }}
+            </div>
+            <!-- DATE -->
+            <div class="form-group">
+                {{ form.date.errors }}
+                <label for="{{ form.date.id_for_label }}">Select the date:</label>
+                {{ form.date }}
+            </div>
+
+            <button class="btn submit btn-primary btn-block">Insert</button>
         </form>
     </div>
 
-    <div class="col-lg-8">
+    <div class="col-lg-8 border">
+        <div class="tracks mt-2 mb-2">
+            <h4 class="text-center">10 recent entered tracks</h4>
+            <table class="table table-form mt-3 ml-2 mr-2">
+                <tr class="table-head">
+                    <th>Name</th>
+                    <th>Duration <br> <br> <span class="text-secondary">(in pomodoros)</span></th>
+                    <th>Rate</th>
+                    <th>Date</th>
+                </tr>
+
+                {% for track in tracks %}
+                <tr>
+                    <td>{{ track.id_task }}</td>
+                    <td> <div class="mx-auto"> {{ track.duration }}</div></td>
+                    <td>{{ track.id_rate }}</td>
+                    <td>{{ track.date }}</td>
+                </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+
+    <!-- <div class="col-lg-8">
         <h4>Tracking</h4>
         <ul>
             {% for track in tracks %}
-                <li>{{ track.date }} - {{ track.id_task }} - {{ track.duration }} pomodoro - {{ track.id_rate }}</li>
+            <li>{{ track.date }} - {{ track.id_task }} - {{ track.duration }} pomodoro - {{ track.id_rate }}</li>
             {% endfor %}
         </ul>
-    </div>
+    </div> -->
 
 </div>
 {% endblock content %}
-
-

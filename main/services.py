@@ -1,9 +1,107 @@
+"""This module is responsible for getting  full needest information for templates."""
+
+
 from django.db.models import Sum, Avg
 from .models import Track, Task
 from datetime import date, timedelta
 
 
 # COMMON FUNCTIONS. RECIEVING INFORMATION FROM DB.
+
+# 1. Period of time
+# 2. Query data
+# 3. Proccessing data
+
+
+class Dates:
+    ""
+
+    __TODAY = date.today()
+    __MONTH = __TODAY.month
+    __YEAR = __TODAY.year
+
+    @classmethod
+    def current_week_dates(cls):
+        "Find first and last dates of a week."
+
+        first_day = cls.__TODAY - timedelta(days=cls.__TODAY.weekday())
+        last_day = first_day + timedelta(days=6)
+        print('current_week_dates')
+        return first_day, last_day
+
+    @classmethod
+    def last_week_dates(cls):
+        "Find first and last dates of a week."
+
+        first_day = cls.__TODAY - timedelta(days=cls.__TODAY.weekday() + 7)
+        last_day = first_day + timedelta(days=6)
+        return first_day, last_day
+
+    @classmethod
+    def current_month_dates(cls):
+        "Find first and last dates of a week."
+
+        first_day = date(year=cls.__YEAR, month=cls.__MONTH, day=1)
+        last_day = date(year=cls.__YEAR, month=cls.__MONTH+1, day=1) - timedelta(days=1)
+        return first_day, last_day
+
+    @classmethod
+    def last_month_dates(cls):
+        "Find first and last dates of a week."
+
+        first_day = date(year=cls.__YEAR, month=cls.__MONTH-1, day=1)
+        last_day = date(year=cls.__YEAR, month=cls.__MONTH, day=1) - timedelta(days=1)
+        return first_day, last_day
+
+
+class UserTracks(Dates):
+    "Class queries all tracks related with added user and processes it."
+
+    def __init__(self, user):
+        self.__user = user
+        self.__tracks = Track.objects.filter(author=user)
+        print('UserTracks class')
+
+    def __query_tracks_for_period(self, period):
+        "Query the tracks from the starting day to the trailing day."
+
+        starting_day = period[0]
+        trailing_day = period[1]
+
+        tracks = self.__tracks.filter(
+            date__gte=starting_day
+        ).exclude(
+            date__gt=trailing_day
+        )
+        print('__query_tracks_for_period')
+        return tracks
+    
+    def __count_total_work_time(self, period):
+        "This func evaluates all work time for a given period"
+        
+        tracks = self.__query_tracks_for_period(period)
+        work_time = tracks.aggregate(Sum('duration'))['duration__sum']
+        print('__count_total_work_time')
+        
+        if work_time == None:
+            return 0
+        
+        return work_time
+    
+    def work_time_current_week(self):
+        "Return total work time for current week."
+
+        period = self.current_week_dates()
+        return self.__count_total_work_time(period)
+    
+    def work_time_current_month(self):
+        "Return total work time for current month."
+
+        period = self.current_month_dates()
+        return self.__count_total_work_time(period)
+        
+        
+    
 
 
 def get_week_information(user, added_date=None):
@@ -179,16 +277,19 @@ def days_of_week(added_date):
 
 def pomodoros_to_hours(pomodoros):
     """Transform pomodoro time to usual time (hours, minutes)"""
+    
     if pomodoros:
         hours = pomodoros // 2
         minutes = pomodoros % 2 * 30
     else:
         hours, minutes = 0, 0
+        
     return {'hours': hours, 'minutes': minutes}
 
 
 def toFixed(numObj, digits=0):
     """Fixes number of float digits after point"""
+    
     return f"{numObj:.{digits}f}"
 
 

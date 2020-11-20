@@ -1,26 +1,47 @@
 {% extends 'main/base_generic.html' %}
 
+
+{% block title %}
+    <title>Create task</title>
+{% endblock title %}
+
+
 {% block content %}
+
 <div class="row mt-3 border">
     <!--INSERT CELL FORM-->
-    <div class="col-lg border">
-        <h4>Insert new task</h4 m-1>
-        <form method="POST"> {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="save btn btn-primary">Insert</button>
+    <div class="col-lg-3 border">
+
+        <form method='POST' class="mt-2 mb-2">
+            <div class="form-group">
+                <h4 class="text-center">Create a new task</h4>
+            </div>
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+            <!-- TASK -->
+            <div class="form-group mt-5">
+                {{ form.name.errors }}
+                <label for="{{ form.name.id_for_label }}">Insert name of a new task:</label>
+                {{ form.name }}
+            </div>
+
+            <button class="btn submit btn-primary btn-block">Insert</button>
         </form>
     </div>
 
     <div class="col-lg border">
-        <h4>Tasks</h4>
-        <ul>
-            {% for task in tasks %}
+        <div class="mt-2 mb-2">
+            <h4 class="text-center">List of all tasks</h4>
+        </div>
+        <div class="my-2">
+            <ul>
+                {% for task in tasks %}
                 <li>{{ task.name }}</li>
-            {% endfor %}
-        </ul>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 
 </div>
 {% endblock content %}
-
-
