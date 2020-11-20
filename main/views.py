@@ -31,6 +31,8 @@ def index(request):
             'statistic': {
                 'current_week': userTracks.work_time_current_week(),
                 'current_month': userTracks.work_time_current_month(),
+                'last_month': userTracks.work_time_last_month(),
+                'for_ever': userTracks.work_time_for_ever(),
             },
         }
 
