@@ -1,6 +1,18 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: var(--footer-height);
+    /* Margin bottom by footer height */
+}
+
 :root {
     --main-color: rgb(12, 6, 36);
+    --light-color:  #dfdfe2;
     --bg-light: #fff;
+    --footer-height: 40px;
 }
 
 .bg-main {
@@ -25,4 +37,13 @@
 
 .table-head {
     background-color: rgb(241, 241, 241);
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: var(--footer-height);
+    line-height: var(--footer-height);
+    background-color: var(--light-color);
 }
