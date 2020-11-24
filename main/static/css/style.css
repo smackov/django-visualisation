@@ -4,7 +4,7 @@ html {
 }
 
 body {
-    margin-bottom: var(--footer-height);
+    margin-bottom: 60px;
     /* Margin bottom by footer height */
 }
 
@@ -46,4 +46,9 @@ body {
     height: var(--footer-height);
     line-height: var(--footer-height);
     background-color: var(--light-color);
+}
+
+.cw-total {
+    border-top: 0.15rem solid var(--light-color);
+    border-bottom: 0.15rem solid var(--light-color);
 }

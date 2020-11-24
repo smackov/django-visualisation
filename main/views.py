@@ -34,6 +34,7 @@ def index(request):
                 'last_month': userTracks.work_time_last_month(),
                 'for_ever': userTracks.work_time_for_ever(),
             },
+            'current_week': userTracks.current_week_detail(),
         }
 
     return render(request, 'main/index.html', context)

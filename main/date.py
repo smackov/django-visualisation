@@ -12,6 +12,13 @@ class Date:
     __TODAY = date.today()
     __MONTH = __TODAY.month
     __YEAR = __TODAY.year
+    
+    @classmethod
+    def first_day_of_current_week(cls):
+        "Find first day of a current week."
+
+        first_day = cls.__TODAY - timedelta(days=cls.__TODAY.weekday())
+        return first_day
 
     @classmethod
     def current_week_dates(cls):

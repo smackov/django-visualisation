@@ -3,429 +3,164 @@
 
 
 {% block content %}
-        
 
-        <!-- FIRST ROW -->
-        <div class="row mt-3 border">
 
-            <!-- WEEK STATUS -->
-            <div class="col-lg-3">
-                <h4 class="text-center mb-4">Week status</h4>
-                <div class="progress position-relative" style="height: 25px;">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                        aria-valuenow="{{ week_data.status_complete_css }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ week_data.status_complete_css }}%">
-                        <span class="justify-content-center d-flex position-absolute w-100">{{ week_data.status_complete }} %</span>
+<!-- FIRST ROW -->
+<div class="row mt-3 border">
 
-                    </div>
-                </div>
-                <p class="text-center my-1">{ {{ week_data.worked_time.hours }} of 30 hours }</p>
+    <!-- WEEK STATUS -->
+    <div class="col-lg-3">
+        <h4 class="text-center mb-4">Week status</h4>
+        <div class="progress position-relative" style="height: 25px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                aria-valuenow="{{ week_data.status_complete_css }}" aria-valuemin="0" aria-valuemax="100"
+                style="width: {{ week_data.status_complete_css }}%">
+                <span class="justify-content-center d-flex position-absolute w-100">{{ week_data.status_complete }}
+                    %</span>
 
             </div>
-            <!-- END WEEK STATUS -->
+        </div>
+        <p class="text-center my-1">{ {{ week_data.worked_time.hours }} of 30 hours }</p>
 
-            <!-- LAST 4 WEEK -->
-            <div class="col-lg-5">
-                <h4 class="text-center mb-4">Last 4 weeks</h4>
-                <div class="d-flex flex-column">
+    </div>
+    <!-- END WEEK STATUS -->
 
-                    <!-- weeks -->
-                    
-                    {% if last_weeks %}
-                        
-                    {% for week in last_weeks %}
-                    <div class="d-flex flex-row">
-                        <div class="w-50">
-                            <div class="progress position-relative" style="height: 25px;">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                    aria-valuenow="{{ week.status_complete_css }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ week.status_complete_css }}%">
-                                    <span class="justify-content-center d-flex position-absolute w-100">{{ week.status_complete }} %</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-50 d-flex flex-row">
-                            <div style="width: 15%">
-                                <p class="text-right">{{ week.emoji }}</p>
-                            </div>
-                            <div style="width: 20%">
-                                <p class="text-right">{{ week.worked_time.hours }} h</p>
-                            </div>
-                            <div style="width: 65%">
-                                <p class="text-right">{{ week.first_day.day }} - {{ week.last_day }}</p>
-                            </div>
+    <!-- LAST 4 WEEK -->
+    <div class="col-lg-5">
+        <h4 class="text-center mb-4">Last 4 weeks</h4>
+        <div class="d-flex flex-column">
+
+            <!-- weeks -->
+
+            {% if last_weeks %}
+
+            {% for week in last_weeks %}
+            <div class="d-flex flex-row">
+                <div class="w-50">
+                    <div class="progress position-relative" style="height: 25px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                            aria-valuenow="{{ week.status_complete_css }}" aria-valuemin="0" aria-valuemax="100"
+                            style="width: {{ week.status_complete_css }}%">
+                            <span
+                                class="justify-content-center d-flex position-absolute w-100">{{ week.status_complete }}
+                                %</span>
                         </div>
                     </div>
-                    {% endfor %}
-
-                    {% endif %}
-
-                    <!-- weeks -->
-
+                </div>
+                <div class="w-50 d-flex flex-row">
+                    <div style="width: 15%">
+                        <p class="text-right">{{ week.emoji }}</p>
+                    </div>
+                    <div style="width: 20%">
+                        <p class="text-right">{{ week.worked_time.hours }} h</p>
+                    </div>
+                    <div style="width: 65%">
+                        <p class="text-right">{{ week.first_day.day }} - {{ week.last_day }}</p>
+                    </div>
                 </div>
             </div>
-            <!-- LAST 4 WEEK -->
+            {% endfor %}
 
-            <!-- STATISTIC -->
-            <div class="col-lg-4">
-                <h4 class="text-center mb-4">Statistic</h4>
-                <div class="d-flex flex-column">
+            {% endif %}
 
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">Total worked per <span class="badge badge-success">week</span>:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>{{ statistic.current_week }}</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">Total worked per <span class="badge badge-info">month</span>:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>{{ statistic.current_month }}</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">Total worked per <span class="badge badge-primary">last month</span>:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>{{ statistic.last_month }}</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">Total worked for <span class="badge badge-danger">ever</span>:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>{{ statistic.for_ever }}</strong> h.</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <!-- END STATISTIC -->
+            <!-- weeks -->
 
         </div>
-        <!-- END FIRST ROW-->
+    </div>
+    <!-- LAST 4 WEEK -->
 
-        <!-- CURRENT WEEK - SECOND ROW -->
-        <h4 class="text-center mt-3 mb-3">Current week</h4>
-        <div class="row border">
-            <!-- DAY -->
-            <div class="col-lg ">
-                <h6 class="text-center">Monday</h6>
+    <!-- STATISTIC -->
+    <div class="col-lg-4">
+        <h4 class="text-center mb-4">Statistic</h4>
+        <div class="d-flex flex-column">
 
-                <div class="d-flex flex-column">
-
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row mt-2">
-                        <div class="w-75">
-                            <p class="my-0"><strong>Total:</strong></p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
+            <div class="d-flex flex-row">
+                <div class="w-75">
+                    <p class="my-0">Total worked per <span class="badge badge-success">week</span>:</p>
+                </div>
+                <div class="w-25">
+                    <p class="my-0"><strong>{{ statistic.current_week }}</strong> h.</p>
                 </div>
             </div>
-            <!-- END DAY -->
-            <!-- DAY -->
-            <div class="col-lg">
-                <h6 class="text-center">Monday</h6>
-
-                <div class="d-flex flex-column">
-
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row mt-2">
-                        <div class="w-75">
-                            <p class="my-0"><strong>Total:</strong></p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
+            <div class="d-flex flex-row">
+                <div class="w-75">
+                    <p class="my-0">Total worked per <span class="badge badge-info">month</span>:</p>
+                </div>
+                <div class="w-25">
+                    <p class="my-0"><strong>{{ statistic.current_month }}</strong> h.</p>
                 </div>
             </div>
-            <!-- END DAY -->
-            <!-- DAY -->
-            <div class="col-lg">
-                <h6 class="text-center">Monday</h6>
-
-                <div class="d-flex flex-column">
-
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row mt-2">
-                        <div class="w-75">
-                            <p class="my-0"><strong>Total:</strong></p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
+            <div class="d-flex flex-row">
+                <div class="w-75">
+                    <p class="my-0">Total worked per <span class="badge badge-primary">last month</span>:</p>
+                </div>
+                <div class="w-25">
+                    <p class="my-0"><strong>{{ statistic.last_month }}</strong> h.</p>
                 </div>
             </div>
-            <!-- END DAY -->
-            <!-- DAY -->
-            <div class="col-lg">
-                <h6 class="text-center">Monday</h6>
-
-                <div class="d-flex flex-column">
-
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row mt-2">
-                        <div class="w-75">
-                            <p class="my-0"><strong>Total:</strong></p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
+            <div class="d-flex flex-row">
+                <div class="w-75">
+                    <p class="my-0">Total worked for <span class="badge badge-danger">ever</span>:</p>
+                </div>
+                <div class="w-25">
+                    <p class="my-0"><strong>{{ statistic.for_ever }}</strong> h.</p>
                 </div>
             </div>
-            <!-- END DAY -->
-            <!-- DAY -->
-            <div class="col-lg">
-                <h6 class="text-center">Monday</h6>
 
-                <div class="d-flex flex-column">
-
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row mt-2">
-                        <div class="w-75">
-                            <p class="my-0"><strong>Total:</strong></p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END DAY -->
-            <!-- DAY -->
-            <div class="col-lg">
-                <h6 class="text-center">Monday</h6>
-
-                <div class="d-flex flex-column">
-
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row mt-2">
-                        <div class="w-75">
-                            <p class="my-0"><strong>Total:</strong></p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END DAY -->
-            <!-- DAY -->
-            <div class="col-lg">
-                <h6 class="text-center">Monday</h6>
-
-                <div class="d-flex flex-column">
-
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="w-75">
-                            <p class="my-0">1 English:</p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row mt-2">
-                        <div class="w-75">
-                            <p class="my-0"><strong>Total:</strong></p>
-                        </div>
-                        <div class="w-25">
-                            <p class="my-0"><strong>4</strong> h.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END DAY -->
         </div>
-        <!-- END CURRENT WEEK - SECOND ROW -->
+    </div>
+    <!-- END STATISTIC -->
+
+</div>
+<!-- END FIRST ROW-->
+
+<!-- CURRENT WEEK - SECOND ROW -->
+<h4 class="text-center mt-3 mb-3">Current week</h4>
+<div class="row pt-2 my-3">
+
+    {% for day in current_week %}
+    <!-- DAY -->
+    <div class="col-lg d-flex flex-column mt-2 p-0 px-2 mx-0 border-right">
+
+        <h6 class="text-center mb-4">
+                < {{ day.weekday }} />
+        </h6>
+
+        {% if day.tracks %}
+
+        {% for track in day.tracks %}
+
+        <div class="d-flex flex-row pb-2">
+            <div class="w-75">
+                <p class="my-0">{{ track.id_task }}</p>
+            </div>
+            <div class="w-25 text-center">
+                <p class="my-0"><strong>{{ track.duration }}</strong> p.</p>
+            </div>
+        </div>
+
+        {% endfor %}
+
+        <div class="d-flex flex-row mt-auto pt-1 pb-2 cw-total">
+            <div class="w-75">
+                <p class="my-0"><strong>Total:</strong></p>
+            </div>
+            <div class="w-25 text-center">
+                <p class="my-0"><strong>{{ day.total_work_time }}</strong> h.</p>
+            </div>
+        </div>
+
+        {% else %}
+
+        <p class="my-auto text-center py-5">Here no tracks</p>
+
+        {% endif %}
+
+
+    </div>
+    <!-- END DAY -->
+    {% endfor %}
+
+</div>
+<!-- END CURRENT WEEK - SECOND ROW -->
 {% endblock content %}
-    
-
-
