@@ -12,7 +12,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Add additional CSS in static file -->
     {% load static %}
-    <link rel="shortcut icon" href="{% static 'favicon/favicon.png' %}"/>
+    <link rel="shortcut icon" href="{% static 'favicon/favicon.png' %}" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script src="https://kit.fontawesome.com/d35ccb44e3.js" crossorigin="anonymous"></script>
 </head>
@@ -26,24 +26,30 @@
         <!-- ZERO DATE ROW -->
         {% if date %}
         <div class="row mt-3 pt-2 pb-2 border">
-            <div class="col-lg">
+            <div class="col-lg my-auto">
                 <p class="text-left m-0">{{ date }}</p>
             </div>
-            <div class="col-lg">
+            <div class="col-lg my-auto">
                 <p class="text-center m-0">
                     <span class="badge badge-success">{{ number_day }}</span> day of year
                 </p>
             </div>
-            <div class="col-lg">
-                <p class="text-right m-0">Shine like the whole universe is yours – Rumi</p>
+            <div class="col-lg my-auto">
+
+                {% if quote %}
+                <p class="text-right m-0">{{ quote.text }} – <em>{{ quote.author }}</em></p>
+                {% else %}
+                <p class="text-right m-0">Shine like the whole universe is yours – <em>Rumi</em></p>
+                {% endif %}
+
             </div>
         </div>
         {% endif %}
         <!-- END ZERO DATE ROW -->
         {% if user.is_authenticated %}
-            {% block content %}
-            
-            {% endblock content %}
+        {% block content %}
+
+        {% endblock content %}
         {% endif %}
     </div>
     <!-- END CONTENT -->

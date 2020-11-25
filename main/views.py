@@ -4,11 +4,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from .form import TaskForm, TrackForm, RateForm
-from .models import Task, Track, Rate
+from .models import Task, Track, Rate, Quote
 from .services import (
     get_week_information,
     get_last_four_weeks,
-    # get_statistic,
 )
 from .user_tracks import UserTracks
 
@@ -19,13 +18,16 @@ def index(request):
     context = {
         'date': date_today(),
         'number_day': number_day(),
+        'quote': Quote.objects.random(),
     }
+    
 
     if request.user.is_authenticated:
         userTracks = UserTracks(request.user)
         context = {
             'date': date_today(),
             'number_day': number_day(),
+            'quote': Quote.objects.random(),
             'week_data': get_week_information(request.user),
             'last_weeks': get_last_four_weeks(request.user),
             'statistic': {
@@ -55,6 +57,7 @@ def add_task(request):
         'tasks': tasks,
         'date': date_today(),
         'number_day': number_day(),
+        'quote': Quote.objects.random(),
     }
     return render(request, 'main/add_task.html', context)
 
@@ -77,6 +80,7 @@ def add_track(request):
         'tracks': tracks,
         'date': date_today(),
         'number_day': number_day(),
+        'quote': Quote.objects.random(),
     }
     return render(request, 'main/add_track.html', context)
 
@@ -94,6 +98,7 @@ def add_rate(request):
         'rates': rates,
         'date': date_today(),
         'number_day': number_day(),
+        'quote': Quote.objects.random(),
     }
     return render(request, 'main/add_rate.html', context)
 

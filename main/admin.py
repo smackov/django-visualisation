@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Track, Task, Rate
+from .models import Track, Task, Rate, Quote
 
 
 
@@ -20,6 +20,9 @@ class TrackAdmin(admin.ModelAdmin):
 class TaskAdmin(admin.ModelAdmin):
     list_display = ('author', 'name')
 
+@admin.register(Quote)
+class QuoteAdmin(admin.ModelAdmin):
+    list_display = ('author', 'text')
 
 # Registrations
 admin.site.register(Rate)
