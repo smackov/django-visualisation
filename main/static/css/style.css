@@ -52,3 +52,11 @@ body {
     border-top: 0.15rem solid var(--light-color);
     border-bottom: 0.15rem solid var(--light-color);
 }
+
+#btn-undo {
+    background-color: #7cbd8b;
+}
+
+#btn-undo:hover {
+    background-color: #6ca579;
+}

@@ -2,11 +2,32 @@
 
 
 {% block title %}
-    <title>Add track</title>
+<title>Add track</title>
 {% endblock title %}
 
 
+{% block alert %}
+    
+
+{% if enable_undo_button == "True" %}
+        
+<!-- UNDO BUTTON -->
+<div class="alert alert-success d-flex justify-content-center p-1">
+    <p class="my-auto mr-5">The track has been inserted successful!</p>
+    <form action="{% url 'track_undo_insert' %}" method="POST" class="my-auto">
+    {% csrf_token %}
+        <button class="btn btn-sm btn-success" id="btn-undo"><i class="fa fa-undo"></i> UNDO</button>
+    </form>
+</div>
+<!-- END UNDO BUTTON -->
+
+{% endif %}
+
+{% endblock alert %}
+
+
 {% block content %}
+
 <!--INSERT CELL FORM-->
 <div class="row mt-3 border">
 
@@ -65,7 +86,9 @@
                 {% for track in tracks %}
                 <tr>
                     <td>{{ track.id_task }}</td>
-                    <td> <div class="mx-auto"> {{ track.duration }}</div></td>
+                    <td>
+                        <div class="mx-auto"> {{ track.duration }}</div>
+                    </td>
                     <td>{{ track.id_rate }}</td>
                     <td>{{ track.date }}</td>
                 </tr>

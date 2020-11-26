@@ -1,13 +1,14 @@
 from datetime import date
 
-from django.forms import ModelForm, DateInput, Select, NumberInput, BaseModelFormSet, TextInput
-# from django.forms import IntegerField, ChoiceField
+from django.forms import (ModelForm, DateInput, Select, 
+                          NumberInput, BaseModelFormSet, TextInput)
 from django.utils.translation import gettext_lazy as _
 
 from .models import Task, Track, Rate
 
 
 class TaskForm(ModelForm):
+    
     class Meta:
         model = Task
         fields = ['name', ]
@@ -20,7 +21,6 @@ class TaskForm(ModelForm):
 
 
 class TrackForm(ModelForm):
-    
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user')
@@ -53,6 +53,7 @@ class TrackForm(ModelForm):
 
 
 class RateForm(ModelForm):
+    
     class Meta:
         model = Rate
         fields = ['name', 'rate', ]

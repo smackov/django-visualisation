@@ -2,6 +2,7 @@ from datetime import date
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.db.models.aggregates import Max
 
 from .form import TaskForm, TrackForm, RateForm
 from .models import Task, Track, Rate, Quote
@@ -20,7 +21,6 @@ def index(request):
         'number_day': number_day(),
         'quote': Quote.objects.random(),
     }
-    
 
     if request.user.is_authenticated:
         userTracks = UserTracks(request.user)
@@ -71,9 +71,21 @@ def add_track(request):
             track = form.save(commit=False)
             track.author = request.user
             track.save()
+            # Add this session variable to say to render UNDO button
+            # after redirect to the same page
+            request.session['enable_undo_button'] = 'True'
             
     form = TrackForm(user=request.user)
     tracks = Track.objects.filter(author=request.user).order_by('-id')[:10]
+    
+    # If we came to this view from 'undo track' proccess,
+    # we should get session var 'enable_undo_button' = 'True'.
+    # If it is we add it to the context to render UNDO button
+    if request.session.get('enable_undo_button', False) == 'True':
+        enable_undo_button = 'True'
+        del request.session['enable_undo_button']
+    else: 
+        enable_undo_button = False
     
     context = {
         'form': form,
@@ -81,6 +93,7 @@ def add_track(request):
         'date': date_today(),
         'number_day': number_day(),
         'quote': Quote.objects.random(),
+        'enable_undo_button': enable_undo_button,
     }
     return render(request, 'main/add_track.html', context)
 
@@ -101,6 +114,21 @@ def add_rate(request):
         'quote': Quote.objects.random(),
     }
     return render(request, 'main/add_rate.html', context)
+
+
+@login_required
+def track_undo_insert(request):
+    """This view delete the last inserted track from db.
+    
+    (i.e. UNDO function)."""
+    if request.method == 'POST':
+        # Get all user tracks
+        user_tracks = Track.objects.filter(author=request.user)
+        # Get the last inserted track and delete it
+        last_index = user_tracks.aggregate(Max('id'))['id__max']
+        user_tracks.filter(id=last_index).delete()
+
+    return redirect('add_track')
 
 
 # SUPPORT FUNCTIONS
