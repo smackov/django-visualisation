@@ -46,6 +46,8 @@ class Track(models.Model):
 class QuoteManager(models.Manager):
     def random(self):
         count = self.aggregate(count=Count('id'))['count']
+        if count == 0:
+            return None
         random_index = randint(0, count - 1)
         return self.all()[random_index]
 
