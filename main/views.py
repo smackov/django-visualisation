@@ -71,6 +71,7 @@ def add_track(request):
             track = form.save(commit=False)
             track.author = request.user
             track.save()
+            
             # Add this session variable to say to render UNDO button
             # after redirect to the same page
             request.session['enable_undo_button'] = 'True'
