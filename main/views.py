@@ -68,6 +68,9 @@ def add_track(request):
     if request.method == 'POST':
         form = TrackForm(request.POST, user=request.user)
         if form.is_valid():
+            print(form.cleaned_data['id_rate'])
+            print(form.cleaned_data['id_task'])
+            print('/n/n DEEEL')
             track = form.save(commit=False)
             track.author = request.user
             track.save()
