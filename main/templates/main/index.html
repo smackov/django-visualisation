@@ -123,7 +123,7 @@
     <div class="col-lg d-flex flex-column mt-2 p-0 px-2 mx-0 border-right">
 
         <h6 class="text-center mb-4">
-                < {{ day.weekday }} />
+            < {{ day.weekday }} />
         </h6>
 
         {% if day.tracks %}
@@ -134,19 +134,19 @@
             <div class="w-75">
                 <p class="my-0">{{ track.id_task }}</p>
             </div>
-            <div class="w-25 text-center">
-                <p class="my-0"><strong>{{ track.duration }}</strong> p.</p>
+            <div class="w-25 d-flex justify-content-end text-center">
+                <p class="my-0"><strong>{{ track.duration }}</strong> p</p>
             </div>
         </div>
 
         {% endfor %}
 
-        <div class="d-flex flex-row mt-auto pt-1 pb-2 cw-total">
-            <div class="w-75">
+        <div class="d-flex flex-row justify-content-between mt-auto pt-1 pb-2 cw-total">
+            <div class="">
                 <p class="my-0"><strong>Total:</strong></p>
             </div>
-            <div class="w-25 text-center">
-                <p class="my-0"><strong>{{ day.total_work_time }}</strong> h.</p>
+            <div class="text-center">
+                <p class="my-0"><strong>{{ day.total_work_time }}</strong> hours</p>
             </div>
         </div>
 

@@ -42,7 +42,8 @@ class UserTracks:
 
         return whole_part
 
-    def __count_total_work_time(self, period=None, tracks=None):
+    def __count_total_work_time(self, period=None, tracks=None,
+                                with_fraction_part=False):
         "This func evaluates all work time for a given period"
 
         if tracks == None:
@@ -56,7 +57,7 @@ class UserTracks:
         if work_time == None:
             return 0
 
-        work_time = self.__pomodoros_to_hours(work_time)
+        work_time = self.__pomodoros_to_hours(work_time, with_fraction_part)
 
         return work_time
 
@@ -89,9 +90,15 @@ class UserTracks:
         day = Date.first_day_of_current_week()
         context = []
 
+        # Populate context by week days
         for number_day in range(1, 8):
+            # Get tracks and order them by lowering duraton
             tracks = self.__query_tracks_for_period((day, day))
-            total_work_time = self.__count_total_work_time(tracks=tracks)
+            tracks = tracks.order_by('-duration')
+            # Count total worked time in hours
+            total_work_time = self.__count_total_work_time(
+                tracks=tracks, with_fraction_part=True)
+            # Add day tracks and worked time to the context
             new_day = {'weekday': day.strftime('%A'), 
                        'total_work_time': total_work_time,
                        'tracks': tracks}
