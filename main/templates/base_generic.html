@@ -5,31 +5,33 @@
     {% block title %}<title>Visualization</title>{% endblock %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Font awesome - Bootstrap icons -->
+    <script src="https://kit.fontawesome.com/d35ccb44e3.js" crossorigin="anonymous"></script>
     <!-- Add additional CSS in static file -->
     {% load static %}
     <link rel="shortcut icon" href="{% static 'favicon/favicon.png' %}" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <script src="https://kit.fontawesome.com/d35ccb44e3.js" crossorigin="anonymous"></script>
+    <!-- Add supplementary links to the certain page -->
+    {% block links %} {% endblock links %}
 </head>
 
 <body>
     <!-- HEADER -->
     {% include 'header.html' %}
 
-    <!-- <div class="container-fluid"> -->
-    {% block alert %}
-        
-    {% endblock alert %}
-    <!-- </div> -->
+    <!-- ALERTS -->
+    {% block alert %}  {% endblock alert %}
 
-    <!-- CONTENT -->
+    <!-- CONTAINER -->
     <div class="container">
-        <!-- ZERO DATE ROW -->
+        <!-- TODAY AND QUOTE BAR -->
         {% if date %}
         <div class="row mt-3 pt-2 pb-2 border">
             <div class="col-lg my-auto">
@@ -41,22 +43,22 @@
                 </p>
             </div>
             <div class="col-lg my-auto">
-
                 {% if quote %}
                 <p class="text-right m-0">{{ quote.text }} – <em>{{ quote.author }}</em></p>
                 {% else %}
                 <p class="text-right m-0">Shine like the whole universe is yours – <em>Rumi</em></p>
                 {% endif %}
-
             </div>
         </div>
         {% endif %}
-        <!-- END ZERO DATE ROW -->
-        {% block content %}
+        <!-- END TODAY AND QUOTE BAR -->
 
-        {% endblock content %}
+        {% block content %}   {% endblock content %}
+
     </div>
-    <!-- END CONTENT -->
+    <!-- END CONTAINER -->
+
+    {% block content_out_container %}  {% endblock content_out_container %}
 
     <!-- FOOTER -->
     {% include 'footer.html' %}
