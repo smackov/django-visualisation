@@ -114,24 +114,6 @@ def add_track(request):
 
 
 @login_required
-def add_rate(request):
-    if request.method == 'POST':
-        form = RateForm(request.POST)
-        if form.is_valid():
-            form.save()
-    form = RateForm()
-    rates = Rate.objects.all()
-    context = {
-        'form': form,
-        'rates': rates,
-        'date': date_today(),
-        'number_day': number_day(),
-        'quote': Quote.objects.random(),
-    }
-    return render(request, 'main/add_rate.html', context)
-
-
-@login_required
 def track_undo_insert(request):
     """This view delete the last inserted track from db.
     
