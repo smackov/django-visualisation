@@ -6,11 +6,32 @@
 {% endblock title %}
 
 
+
+{% block alert %}
+    
+
+{% if enable_undo_button == "True" %}
+        
+<!-- UNDO BUTTON -->
+<div class="alert alert-success d-flex justify-content-center p-1">
+    <p class="my-auto mr-5">The task has been inserted successful!</p>
+    <form action="{% url 'task_undo_insert' %}" method="POST" class="my-auto">
+    {% csrf_token %}
+        <button class="btn btn-sm btn-success" id="btn-undo"><i class="fa fa-undo"></i> UNDO</button>
+    </form>
+</div>
+<!-- END UNDO BUTTON -->
+
+{% endif %}
+
+{% endblock alert %}
+
+
 {% block content %}
 
 <div class="row mt-3 border">
     <!--INSERT CELL FORM-->
-    <div class="col-lg-3 border">
+    <div class="col-lg-4 border">
 
         <form method='POST' class="mt-2 mb-2">
             <div class="form-group">

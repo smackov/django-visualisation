@@ -22,6 +22,7 @@ urlpatterns = [
     path('add_task', views.add_task, name='add_task'),
     path('add_track', views.add_track, name='add_track'),
     path('track_undo_insert', views.track_undo_insert, name='track_undo_insert'),
+    path('task_undo_insert', views.task_undo_insert, name='task_undo_insert'),
 ]
 
 urlpatterns += [

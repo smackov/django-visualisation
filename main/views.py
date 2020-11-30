@@ -50,14 +50,29 @@ def add_task(request):
             task = form.save(commit=False)
             task.author = request.user
             task.save()
+            # Add this session variable to say to render UNDO button
+            # after redirect to the same page
+            request.session['enable_undo_button'] = 'True'
+            
     form = TaskForm()
     tasks = Task.objects.filter(author=request.user)
+    
+    # If we came to this view from 'undo task' proccess,
+    # we should get session var 'enable_undo_button' = 'True'.
+    # If it is we add it to the context to render UNDO button
+    if request.session.get('enable_undo_button', False) == 'True':
+        enable_undo_button = 'True'
+        del request.session['enable_undo_button']
+    else: 
+        enable_undo_button = False
+    
     context = {
         'form': form,
         'tasks': tasks,
         'date': date_today(),
         'number_day': number_day(),
         'quote': Quote.objects.random(),
+        'enable_undo_button': enable_undo_button,
     }
     return render(request, 'main/add_task.html', context)
 
@@ -129,6 +144,21 @@ def track_undo_insert(request):
         user_tracks.filter(id=last_index).delete()
 
     return redirect('add_track')
+
+
+@login_required
+def task_undo_insert(request):
+    """This view delete the last inserted task from db.
+    
+    (i.e. UNDO function)."""
+    if request.method == 'POST':
+        # Get all user tracks
+        user_tasks = Task.objects.filter(author=request.user)
+        # Get the last inserted track and delete it
+        last_index = user_tasks.aggregate(Max('id'))['id__max']
+        user_tasks.filter(id=last_index).delete()
+
+    return redirect('add_task')
 
 
 # SUPPORT FUNCTIONS
