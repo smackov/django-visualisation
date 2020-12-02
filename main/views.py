@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models.aggregates import Max
 
-from .form import TaskForm, TrackForm, RateForm
+from .form import TaskForm, TrackForm
 from .models import Task, Track, Rate, Quote
 from .services import (
     get_week_information,
