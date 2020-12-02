@@ -8,7 +8,7 @@ from .models import Task, Track, Rate
 
 
 class TaskForm(ModelForm):
-    
+
     class Meta:
         model = Task
         fields = ['name', ]

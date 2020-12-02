@@ -42,10 +42,7 @@ class Date:
         "Find first and last dates of a current month."
         
         first_day = cls.__TODAY + relativedelta(day=1)
-        print('\n\n Current month')
-        print('First day: ', first_day)
         last_day = cls.__TODAY + relativedelta(day=1, months=+1, days=-1)
-        print('Last day: ', first_day)
         
         return first_day, last_day
 
@@ -54,9 +51,6 @@ class Date:
         "Find first and last dates of a last month."
         
         first_day = cls.__TODAY + relativedelta(day=1, months=-1)
-        print('\n\n Last month')
-        print('First day: ', first_day)
         last_day = cls.__TODAY + relativedelta(day=1, days=-1)
-        print('Last day: ', first_day)
         
         return first_day, last_day
