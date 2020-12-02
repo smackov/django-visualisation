@@ -73,8 +73,13 @@ def add_track(request):
             print(form.cleaned_data['date'])
             print(form.cleaned_data['duration'])
             print('/n/n DEEEL')
-            track = form.save(commit=False)
-            track.author = request.user
+            # track = form.save(commit=False)
+            id_rate = form.cleaned_data['id_rate']
+            id_task = form.cleaned_data['id_task']
+            date = form.cleaned_data['date']
+            duration = form.cleaned_data['duration']
+            author = request.user
+            track = Track(id_rate=id_rate, id_task=id_task, date=date, duration=duration, author=author)
             track.save()
             
             # Add this session variable to say to render UNDO button
