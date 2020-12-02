@@ -70,6 +70,8 @@ def add_track(request):
         if form.is_valid():
             print(form.cleaned_data['id_rate'])
             print(form.cleaned_data['id_task'])
+            print(form.cleaned_data['date'])
+            print(form.cleaned_data['duration'])
             print('/n/n DEEEL')
             track = form.save(commit=False)
             track.author = request.user
