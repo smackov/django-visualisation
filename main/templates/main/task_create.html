@@ -1,0 +1,69 @@
+{% extends 'base_generic.html' %}
+
+
+{% block title %}
+    <title>Create task</title>
+{% endblock title %}
+
+
+
+{% block alert %}
+    
+
+{% if enable_undo_button == "True" %}
+        
+<!-- UNDO BUTTON -->
+<div class="alert alert-success d-flex justify-content-center p-1">
+    <p class="my-auto mr-5">The task has been inserted successful!</p>
+    <form action="{% url 'task_undo_insert' %}" method="POST" class="my-auto">
+    {% csrf_token %}
+        <button class="btn btn-sm btn-success" id="btn-undo"><i class="fa fa-undo"></i> UNDO</button>
+    </form>
+</div>
+<!-- END UNDO BUTTON -->
+
+{% endif %}
+
+{% endblock alert %}
+
+
+{% block content %}
+
+
+<div class="row mt-3 border">
+    <!--INSERT CELL FORM-->
+    <div class="col-lg-4 border">
+
+        <form method='POST' class="mt-2 mb-2">
+            <div class="form-group">
+                <h4 class="text-center">Create a new task</h4>
+            </div>
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+            <!-- TASK -->
+            <div class="form-group mt-5">
+                {{ form.name.errors }}
+                <label for="{{ form.name.id_for_label }}">Insert name of a new task:</label>
+                {{ form.name }}
+            </div>
+
+            <button class="btn submit btn-primary btn-block">Insert</button>
+        </form>
+    </div>
+
+    <div class="col-lg border">
+        <div class="mt-2 mb-2">
+            <h4 class="text-center">List of all tasks</h4>
+        </div>
+        <div class="my-2">
+            <ul>
+                {% for task in tasks %}
+                <li>{{ task.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}
