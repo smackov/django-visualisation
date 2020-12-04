@@ -60,3 +60,7 @@ body {
 #btn-undo:hover {
     background-color: #6ca579;
 }
+
+.form-update {
+    max-width: 400px;
+}

@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.aggregates import Max
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 
 from .form import TaskForm, TrackForm
 from .models import Task, Track, Rate, Quote
@@ -76,6 +76,12 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
             context['enable_undo_button'] = False
             
         return context
+
+
+class TaskUpdateView(LoginRequiredMixin, UpdateView):
+    model = Task
+    template_name = 'main/task_update.html'
+    form_class = TaskForm
 
 
 @login_required

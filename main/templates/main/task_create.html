@@ -32,7 +32,7 @@
 
 <div class="row mt-3 border">
     <!--INSERT CELL FORM-->
-    <div class="col-lg-4 border">
+    <div class="col-lg-4 border py-3">
 
         <form method='POST' class="mt-2 mb-2">
             <div class="form-group">
@@ -52,14 +52,16 @@
         </form>
     </div>
 
-    <div class="col-lg border">
+    <div class="col-lg border py-3">
         <div class="mt-2 mb-2">
             <h4 class="text-center">List of all tasks</h4>
         </div>
         <div class="my-2">
             <ul>
                 {% for task in tasks %}
-                <li>{{ task.name }}</li>
+                <li><a href="{{ task.get_absolute_url }}" class="">
+                    {{ task.name }}
+                </a></li>
                 {% endfor %}
             </ul>
         </div>

@@ -16,11 +16,11 @@ Including another URLconf
 from django.urls import path, include
 
 from . import views
-from .views import TaskCreateView
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('add_task', TaskCreateView.as_view(), name='add_task'),
+    path('add_task', views.TaskCreateView.as_view(), name='add_task'),
+    path('task/<int:pk>/update', views.TaskUpdateView.as_view(), name='update_task'),
     path('add_track', views.add_track, name='add_track'),
     path('track_undo_insert', views.track_undo_insert, name='track_undo_insert'),
     path('task_undo_insert', views.task_undo_insert, name='task_undo_insert'),
