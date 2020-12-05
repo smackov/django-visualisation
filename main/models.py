@@ -32,6 +32,12 @@ class Task(models.Model):
 
 
 class Rate(models.Model):
+    """
+    Rate - it is how good we can compete the track.
+
+    For example, bad, good or perfect. The value of rate will influence
+    to an user score (it will be implemented in the future).
+    """
     name = models.CharField(max_length=20)
     rate = models.FloatField(help_text="Enter the rate value")
 
@@ -40,14 +46,30 @@ class Rate(models.Model):
 
 
 class Track(models.Model):
+    """
+    Track - it is finished period of time that was spent to a task.
+
+    For example, we had been learning English for 2 hours (4 pomodoros) today.
+    So we can create new completed track with specified charechteristics: 
+        date = today, task = English, duration = 4 pomodoros,
+        rate = good, author = me
+    """
     date = models.DateField()
-    id_task = models.ForeignKey("Task", on_delete=models.CASCADE,
-                                verbose_name='Task')
+    id_task = models.ForeignKey(
+        "Task",
+        on_delete=models.CASCADE,
+        verbose_name='Task'
+    )
     duration = models.IntegerField()
-    id_rate = models.ForeignKey("Rate", on_delete=models.CASCADE,
-                                verbose_name='Rate')
-    author = models.ForeignKey(settings.AUTH_USER_MODEL,
-                               on_delete=models.CASCADE)
+    id_rate = models.ForeignKey(
+        "Rate",
+        on_delete=models.CASCADE,
+        verbose_name='Rate'
+    )
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
 
     class Meta:
         ordering = ('date', 'author', 'id_task')
@@ -56,9 +78,15 @@ class Track(models.Model):
         return (f'{self.id} - ' + self.id_task.name +
                 f' - {self.duration} pom-ro' + f' - {self.date}')
 
+    # def get_absolute_url(self):
+    #     return reverse("update_track", kwargs={"pk": self.pk})
+
 
 class QuoteManager(models.Manager):
+    "The queryset manager of Quote class"
+
     def random(self):
+        "Get random quote from database"
         count = self.aggregate(count=Count('id'))['count']
         if count == 0:
             return None
@@ -67,6 +95,9 @@ class QuoteManager(models.Manager):
 
 
 class Quote(models.Model):
+    """
+    Quotes from this class are shown in all pages of this webapplication.
+    """
     author = models.CharField(max_length=20)
     text = models.CharField(max_length=200)
     objects = QuoteManager()
