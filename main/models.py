@@ -78,8 +78,8 @@ class Track(models.Model):
         return (f'{self.id} - ' + self.id_task.name +
                 f' - {self.duration} pom-ro' + f' - {self.date}')
 
-    # def get_absolute_url(self):
-    #     return reverse("update_track", kwargs={"pk": self.pk})
+    def get_absolute_url(self):
+        return reverse("update_track", kwargs={"pk": self.pk})
 
 
 class QuoteManager(models.Manager):

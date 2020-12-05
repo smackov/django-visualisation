@@ -1,6 +1,7 @@
 from datetime import date
 
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.aggregates import Max
@@ -82,6 +83,7 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
     model = Task
     template_name = 'main/task_update.html'
     form_class = TaskForm
+    success_url = reverse_lazy('add_task')
 
 
 @login_required
@@ -119,6 +121,20 @@ def add_track(request):
         'enable_undo_button': enable_undo_button,
     }
     return render(request, 'main/add_track.html', context)
+
+
+class TrackUpdateView(LoginRequiredMixin, UpdateView):
+    model = Track
+    template_name = 'main/track_update.html'
+    form_class = TrackForm
+    success_url = reverse_lazy('add_track')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({
+            'user': self.request.user,
+        })
+        return kwargs
 
 
 @login_required

@@ -22,6 +22,7 @@ urlpatterns = [
     path('add_task', views.TaskCreateView.as_view(), name='add_task'),
     path('task/<int:pk>/update', views.TaskUpdateView.as_view(), name='update_task'),
     path('add_track', views.add_track, name='add_track'),
+    path('track/<int:pk>/update', views.TrackUpdateView.as_view(), name='update_track'),
     path('track_undo_insert', views.track_undo_insert, name='track_undo_insert'),
     path('task_undo_insert', views.task_undo_insert, name='task_undo_insert'),
 ]
