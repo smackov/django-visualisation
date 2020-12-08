@@ -2,7 +2,7 @@
 
 
 {% block title %}
-    <title>Create task</title>
+    <title>Update task</title>
 {% endblock title %}
 
 
@@ -30,14 +30,14 @@
 {% block content %}
 
 
-<div class="row mt-3 border">
+<div class="row mt-3">
     <!--INSERT CELL FORM-->
-    <div class="col-lg border py-3">
+    <div class="col-lg py-3">
 
         <form method='POST' class="mt-2 mb-2">
             <div class="form-group">
                 <h4 class="text-center">The task update</h4>
-                <h6 class="text-center">{{ task.name }}</h6>
+                <h3 class="text-center mt-3"><mark>{{ task.name }}</mark></h3>
             </div>
             {% csrf_token %}
 
@@ -45,7 +45,7 @@
             <!-- TASK -->
             <div class="form-group mt-5 mx-auto form-update">
                 {{ form.name.errors }}
-                <label for="{{ form.name.id_for_label }}">Update the name of the task:</label>
+                <label for="{{ form.name.id_for_label }}">Enter new name of the task:</label>
                 {{ form.name }}
             </div>
 

@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.aggregates import Max
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DeleteView
 
 from .form import TaskForm, TrackForm
 from .models import Task, Track, Rate, Quote
@@ -43,6 +43,10 @@ def index(request):
 
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
+    """
+    This class based view contains task form and list of last 10
+    created tasks.
+    """
     model = Task
     template_name = 'main/task_create.html'
     form_class = TaskForm
@@ -83,6 +87,12 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
     model = Task
     template_name = 'main/task_update.html'
     form_class = TaskForm
+    success_url = reverse_lazy('add_task')
+    
+
+class TaskDeleteView(LoginRequiredMixin, DeleteView):
+    model = Task
+    template_name = 'main/task_delete.html'
     success_url = reverse_lazy('add_task')
 
 

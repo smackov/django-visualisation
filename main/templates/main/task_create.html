@@ -2,21 +2,21 @@
 
 
 {% block title %}
-    <title>Create task</title>
+<title>Create task</title>
 {% endblock title %}
 
 
 
 {% block alert %}
-    
+
 
 {% if enable_undo_button == "True" %}
-        
+
 <!-- UNDO BUTTON -->
 <div class="alert alert-success d-flex justify-content-center p-1">
     <p class="my-auto mr-5">The task has been inserted successful!</p>
     <form action="{% url 'task_undo_insert' %}" method="POST" class="my-auto">
-    {% csrf_token %}
+        {% csrf_token %}
         <button class="btn btn-sm btn-success" id="btn-undo"><i class="fa fa-undo"></i> UNDO</button>
     </form>
 </div>
@@ -30,11 +30,11 @@
 {% block content %}
 
 
-<div class="row mt-3 border">
+<div class="row mt-3">
     <!--INSERT CELL FORM-->
-    <div class="col-lg-4 border py-3">
+    <div class="col-lg-4 py-3">
 
-        <form method='POST' class="mt-2 mb-2">
+        <form method='POST' class="my-2 mx-1">
             <div class="form-group">
                 <h4 class="text-center">Create a new task</h4>
             </div>
@@ -52,16 +52,30 @@
         </form>
     </div>
 
-    <div class="col-lg border py-3">
-        <div class="mt-2 mb-2">
+    <div class="col-lg py-3">
+        <div class="my-2">
             <h4 class="text-center">List of all tasks</h4>
         </div>
-        <div class="my-2">
-            <ul>
+        <div class="mx-5 mt-4">
+            <ul class="list-group">
                 {% for task in tasks %}
-                <li><a href="{{ task.get_absolute_url }}" class="">
-                    {{ task.name }}
-                </a></li>
+                <li class="list-group-item p-0">
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            {{ task.name }}
+                        </li>
+                        <a href="{{ task.get_absolute_url }}" class="ml-auto text-body">
+                            <li class="list-group-item border-right-0 border-bottom-0 border-top-0">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </li>
+                        </a>
+                        <a href="{% url 'delete_task' task.id %}" class="text-body">
+                            <li class="list-group-item border-right-0 border-bottom-0 border-top-0">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </li>
+                        </a>
+                    </ul>
+                </li>
                 {% endfor %}
             </ul>
         </div>
