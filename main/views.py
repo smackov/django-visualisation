@@ -16,18 +16,9 @@ from .user_tracks import UserTracks
 def index(request):
     "The general page with common statistic."
 
-    context = {
-        'date': date_today(),
-        'number_day': number_day(),
-        'quote': Quote.objects.random(),
-    }
-
     if request.user.is_authenticated:
         userTracks = UserTracks(request.user)
         context = {
-            'date': date_today(),
-            'number_day': number_day(),
-            'quote': Quote.objects.random(),
             'week_data': get_week_information(request.user),
             'last_weeks': get_last_four_weeks(request.user),
             'statistic': {
@@ -66,9 +57,6 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['date'] = date_today()
-        context['number_day'] = number_day()
-        context['quote'] = Quote.objects.random()
         context['tasks'] = Task.objects.filter(author=self.request.user)
         
         # If we came to this view from 'undo task' proccess,
@@ -125,9 +113,6 @@ def add_track(request):
     context = {
         'form': form,
         'tracks': tracks,
-        'date': date_today(),
-        'number_day': number_day(),
-        'quote': Quote.objects.random(),
         'enable_undo_button': enable_undo_button,
     }
     return render(request, 'main/add_track.html', context)
@@ -141,9 +126,7 @@ class TrackUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs.update({
-            'user': self.request.user,
-        })
+        kwargs.update({'user': self.request.user})
         return kwargs
 
 
@@ -175,30 +158,3 @@ def task_undo_insert(request):
         user_tasks.filter(id=last_index).delete()
 
     return redirect('add_task')
-
-
-# SUPPORT FUNCTIONS
-
-
-def date_today():
-    """It return a date in accurate for pages format
-
-    date_today() --> 'Saturday 14 November'
-    """
-    return date.today().strftime('%A %d %B')
-
-
-def number_day():
-    """The number day of year
-
-    if today 01.01.2020 (the first day of year)
-    number_day() --> 1
-
-    if today 05.07.2020 (the arbitrary day of year)
-    number_day() --> 187
-
-    if today 31.12.2020 (the last day of year)
-    number_day() --> 366 (leap year)
-    """
-    return (date.today().toordinal() -
-            date(date.today().year, 1, 1).toordinal() + 1)
