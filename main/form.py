@@ -51,6 +51,7 @@ class TrackForm(forms.ModelForm):
         # Set appropriate queryset containing only Tasks belong to the
         # current User
         self.fields['id_task'].queryset = Task.objects.filter(author=user)
+        self.fields['id_rate'].initial = Rate.objects.get(name='Good')
 
     def save(self, commit=True):
         instance = super().save(commit=False)
