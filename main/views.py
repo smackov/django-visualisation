@@ -15,6 +15,7 @@ from .user_tracks import UserTracks
 
 def index(request):
     "The general page with common statistic."
+    context = {}
 
     if request.user.is_authenticated:
         userTracks = UserTracks(request.user)
