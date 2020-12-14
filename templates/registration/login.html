@@ -10,21 +10,9 @@
 {% load widget_tweaks %}
 
 
-{% block content_out_container %}
+{% block content %}
 
 <form class="form-signin text-center mt-5" method="post" action="{% url 'login' %}">
-    {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>
-    {% endif %}
-
-    {% if next %}
-        {% if user.is_authenticated %}
-            <p>Your account doesn't have access to this page. To proceed,
-                please login with an account that has access.</p>
-        {% else %}
-            <p>Please login to see this page.</p>
-        {% endif %}
-    {% endif %}
 
     {% csrf_token %}
     <h1 class="h3 my-3 font-weight-normal">Please sign in</h1>
@@ -36,6 +24,18 @@
             <input type="checkbox" value="remember-me"> Remember me
         </label>
     </div> -->
+    {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+
+    {% if next %}
+    {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+        please login with an account that has access.</p>
+    {% else %}
+    <p>Please login to see this page.</p>
+    {% endif %}
+    {% endif %}
 
     <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Sign in</button>
     <input type="hidden" name="next" value="{{ next }}" />
@@ -45,4 +45,4 @@
     <p class="mt-3 mb-3 text-muted">&copy; 2020-2021</p>
 </form>
 
-{% endblock content_out_container %}
+{% endblock content %}
