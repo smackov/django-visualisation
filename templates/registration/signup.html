@@ -1,0 +1,40 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}<title>Sign up | Visualization</title>{% endblock %}
+
+{% block links %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/signin.css' %}">
+{% endblock links %}
+
+{% load widget_tweaks %}
+
+
+{% block content %}
+
+<form class="form-signin text-center mt-5" method="post">
+
+    {% csrf_token %}
+    <h1 class="h3 my-3 font-weight-normal">Sign up</h1>
+    <p class="text-left mt-4">Enter username:</p>
+    {% render_field form.username class+="form-control" placeholder="Username" %}
+    <p class="text-left mt-4">Enter password:</p>
+    {% render_field form.password1 class+="form-control" placeholder="Enter password" %}
+    {% render_field form.password2 class+="form-control" placeholder="Enter password again" %}
+    
+    {% if form.errors %}
+        
+        <p>{{ form.errors }}</p>
+            
+    {% endif %}
+
+    <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Registrate</button>
+    <!-- <input type="hidden" name="next" value="{{ next }}" /> -->
+    <p class="mt-2 mb-3 text-muted">
+        Do you have the account?  
+        <a class="text-decoration-none" href="{% url 'login' %}">Sign in</a>
+    </p>
+    <p class="mt-3 mb-3 text-muted">&copy; 2020-2021</p>
+</form>
+
+{% endblock content %}
