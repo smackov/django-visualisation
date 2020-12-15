@@ -30,7 +30,7 @@ class TrackForm(forms.ModelForm):
 
     class Meta:
         model = Track
-        fields = ('duration', 'date')
+        fields = ('duration', 'date', 'id_task', 'id_rate')
         widgets = {
             'duration': NumberInput(
                 attrs={'class': 'form-control', 'min': 1, 'max': 20,
@@ -52,14 +52,4 @@ class TrackForm(forms.ModelForm):
         # current User
         self.fields['id_task'].queryset = Task.objects.filter(author=user)
         self.fields['id_rate'].initial = Rate.objects.get(name='Good')
-
-    def save(self, commit=True):
-        instance = super().save(commit=False)
-        instance.id_rate = self.cleaned_data['id_rate']
-        instance.id_task = self.cleaned_data['id_task']
-        instance.date = self.cleaned_data['date']
-        instance.duration = self.cleaned_data['duration']
-
-        if commit:
-            instance.save()
-        return instance
+        
