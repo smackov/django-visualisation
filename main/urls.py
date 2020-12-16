@@ -27,7 +27,3 @@ urlpatterns = [
     path('track_undo_insert', views.track_undo_insert, name='track_undo_insert'),
     path('task_undo_insert', views.task_undo_insert, name='task_undo_insert'),
 ]
-
-urlpatterns += [
-    path('accounts/', include('django.contrib.auth.urls')),
-]

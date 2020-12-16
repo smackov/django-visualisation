@@ -71,7 +71,6 @@ def get_last_four_weeks(user):
         })
 
         day_of_week -= timedelta(days=7)
-        print(day_of_week)
 
     return context
 
