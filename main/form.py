@@ -12,10 +12,8 @@ class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ['name', ]
-        widgets = {
-            'name': TextInput(attrs={'class': 'form-control', 'autofocus': 1,
-                                     'placeholder': 'A new task ...'})
-        }
+        widgets = {'name': TextInput(attrs={'class': 'form-control', 'autofocus': 1,
+                                            'placeholder': 'A new task ...'})}
 
 
 class TrackForm(forms.ModelForm):
@@ -52,4 +50,3 @@ class TrackForm(forms.ModelForm):
         # current User
         self.fields['id_task'].queryset = Task.objects.filter(author=user)
         self.fields['id_rate'].initial = Rate.objects.get(name='Good')
-        

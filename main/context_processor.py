@@ -4,6 +4,14 @@ from .models import Quote
 
 
 def date_day_quote(request):
+    """
+    The context for all app pages.
+    
+    Get 3 variables:
+     - date in format: 'Saturday 14 November'
+     - number day of year (year has 365 days): 234
+     - random quote from Quote.objects.
+     """
     context = {
         'date': date_today(),
         'number_day': number_day(),

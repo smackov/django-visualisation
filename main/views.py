@@ -73,6 +73,7 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 
 
 class TaskUpdateView(LoginRequiredMixin, UpdateView):
+    "The task update view"
     model = Task
     template_name = 'main/task_update.html'
     form_class = TaskForm
@@ -80,6 +81,7 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
     
 
 class TaskDeleteView(LoginRequiredMixin, DeleteView):
+    "The task delete view"
     model = Task
     template_name = 'main/task_delete.html'
     success_url = reverse_lazy('add_task')
@@ -87,19 +89,20 @@ class TaskDeleteView(LoginRequiredMixin, DeleteView):
 
 @login_required
 def add_track(request):
-
+    "The addition track view"
     if request.method == 'POST':
         form = TrackForm(request.POST, user=request.user)
         if form.is_valid():
             track = form.save(commit=False)
             track.author = request.user
             track.save()
-
+            
             # Add this session variable to say to render UNDO button
             # after redirect to the same page
             request.session['enable_undo_button'] = 'True'
 
     form = TrackForm(user=request.user)
+    # Get last 10 inserted tracks by authorization user
     tracks = Track.objects.filter(author=request.user).order_by('-id')[:10]
 
     # If we came to this view from 'undo track' proccess,
@@ -120,6 +123,7 @@ def add_track(request):
 
 
 class TrackUpdateView(LoginRequiredMixin, UpdateView):
+    "The track update view"
     model = Track
     template_name = 'main/track_update.html'
     form_class = TrackForm

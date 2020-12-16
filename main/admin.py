@@ -1,10 +1,11 @@
 from django.contrib import admin
-from .models import Track, Task, Rate, Quote
 
+from .models import Track, Task, Rate, Quote
 
 
 @admin.register(Track)
 class TrackAdmin(admin.ModelAdmin):
+    "Registration the Track model"
     list_display = ('author', 'id_task', 'duration', 'date', 'id_rate')
     list_filter = ('author', 'date')
     fieldsets = (
@@ -16,14 +17,18 @@ class TrackAdmin(admin.ModelAdmin):
         }),
     )
 
+
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
+    "Registration the Task model"
     list_display = ('author', 'name')
+
 
 @admin.register(Quote)
 class QuoteAdmin(admin.ModelAdmin):
+    "Registration the Quote model"
     list_display = ('author', 'text')
 
-# Registrations
-admin.site.register(Rate)
 
+# Registration the Rate model
+admin.site.register(Rate)
