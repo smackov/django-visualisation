@@ -21,29 +21,36 @@ class IndexTest(TestCase):
         test_user_2 = User.objects.create_user(
             'Test_user_2', 'myemail@crazymail.com', 'password')
 
+        test_user_1.save()
+        test_user_2.save()
+
         "Create Rate object"
-        Rate.objects.create(name="Good", rate=1)
+        rate = Rate.objects.create(name="Good", rate=1)
 
-        "Create 2 new tasks for each users"
-        for user in (test_user_1, test_user_2):
-            for i in range(1, 3):
-                Task.objects.create(name='Task #{} belongs {}'.format(
-                    i, user.username), author=user)
+        "Create tasks for test_user_1"
+        task_1 = Task.objects.create(name='English', author=test_user_1)
+        task_2 = Task.objects.create(name='German', author=test_user_1)
+        task_3 = Task.objects.create(name='Programming', author=test_user_1)
 
-        "Create 5 tracks for current week for each user"
-        for user in (test_user_1, test_user_2):
-            factor = 1 if user == test_user_1 else 2
-            user_tasks = list(Task.objects.filter(author=user))
-            rate = Rate.objects.get(id=1)
-            for n in range(1, 11):
-                random_number = n % 2
-                task = user_tasks[random_number]
-                duration = factor
-                date = datetime.date.today() - datetime.timedelta(days=n)
-                Track.objects.create(
-                    author=user, id_task=task, duration=duration, 
-                    id_rate=rate, date=date
-                )
+        "Create tracks for test_user_1"
+        today = datetime.date.today()
+        # Monday and thursday of current week
+        monday = today - datetime.timedelta(days=today.weekday())
+        thursday = monday + datetime.timedelta(days=1)
+        # Tracks of monday
+        Track.objects.create(author=test_user_1, id_task=task_1, duration=5,
+                             id_rate=rate, date=monday)
+        Track.objects.create(author=test_user_1, id_task=task_1, duration=3,
+                             id_rate=rate, date=monday)
+        Track.objects.create(author=test_user_1, id_task=task_2, duration=10,
+                             id_rate=rate, date=monday)
+        # Tracks of thursday
+        Track.objects.create(author=test_user_1, id_task=task_1, duration=5,
+                             id_rate=rate, date=thursday)
+        Track.objects.create(author=test_user_1, id_task=task_1, duration=3,
+                             id_rate=rate, date=thursday)
+        Track.objects.create(author=test_user_1, id_task=task_2, duration=10,
+                             id_rate=rate, date=thursday)
 
     def test_view_url_exists_at_desired_location(self):
         response = self.client.get('/')
@@ -56,3 +63,22 @@ class IndexTest(TestCase):
     def test_view_uses_correct_template(self):
         response = self.client.get(reverse('index'))
         self.assertTemplateUsed(response, 'main/index.html')
+        
+    def test_view_with_logged_in_user_uses_correct_template(self):
+        login = self.client.login(username='Test_user_1', password='password')
+        response = self.client.get(reverse('index'))
+        # Check our user is logged in
+        self.assertEqual(str(response.context['user']), 'Test_user_1')
+        # Check that we got a response "success"
+        self.assertEqual(response.status_code, 200)
+        # Check we used correct template
+        self.assertTemplateUsed(response, 'main/index.html')
+        
+    def test_context_week_status_value(self):
+        login = self.client.login(username='Test_user_1', password='password')
+        response = self.client.get(reverse('index'))
+        
+        self.assertEqual(response.context['week_data']['worked_time']['hours'], 18)
+        response_status_complete = response.context['week_data']['status_complete'] 
+        self.assertEqual(str(response_status_complete), '{:.0%}'.format(18/30).strip('%'))
+        
