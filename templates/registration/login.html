@@ -16,16 +16,11 @@
 
     {% csrf_token %}
     <h1 class="h3 my-3 font-weight-normal">Please sign in</h1>
-    {% render_field form.username class+="form-control" placeholder="Username" %}
-    {% render_field form.password class+="form-control" placeholder="Password" %}
+    {% render_field form.username class+="form-control form-top-rounded" placeholder="Username" %}
+    {% render_field form.password class+="form-control form-bottom-rounded" placeholder="Password" %}
 
-    <!-- <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" value="remember-me"> Remember me
-        </label>
-    </div> -->
     {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
+    <p class="text-danger">Your username and password didn't match. Please try again.</p>
     {% endif %}
 
     {% if next %}
