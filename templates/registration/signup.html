@@ -16,15 +16,20 @@
 
     {% csrf_token %}
     <h1 class="h3 my-3 font-weight-normal">Sign up</h1>
-    <p class="text-left mt-4">Enter username:</p>
-    {% render_field form.username class+="form-control" placeholder="Username" %}
-    <p class="text-left mt-4">Enter password:</p>
-    {% render_field form.password1 class+="form-control" placeholder="Enter password" %}
-    {% render_field form.password2 class+="form-control" placeholder="Enter password again" %}
+    <!-- <p class="text-left mt-4">Enter username:</p> -->
+    {% render_field form.username class+="form-control form-top-rounded" placeholder="Create username" %}
+    <!-- <p class="text-left mt-4">Enter password:</p> -->
+    {% render_field form.password1 class+="form-control form-no-rounded" placeholder="Create password" %}
+    {% render_field form.password2 class+="form-control form-bottom-rounded" placeholder="Enter password again" %}
     
     {% if form.errors %}
         
-        <p>{{ form.errors }}</p>
+        {% for error in form.errors.values %}
+        <p class="text-danger text-left">{{ error }}</p>
+            
+        {% endfor %}
+            
+        
             
     {% endif %}
 

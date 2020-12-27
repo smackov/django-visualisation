@@ -32,3 +32,9 @@
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+.form-no-rounded {
+    margin-bottom: -1px;
+    margin-top: -1px;
+    border-radius: 0;
+}
