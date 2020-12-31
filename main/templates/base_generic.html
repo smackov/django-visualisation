@@ -33,16 +33,16 @@
     <div class="container border my-2 pb-3">
         <!-- TODAY AND QUOTE BAR -->
         {% if date %}
-        <div class="row mt-2 pt-2 pb-2">
-            <div class="col-lg my-auto">
+        <div class="row">
+            <div class="col-lg mt-2 py-1">
                 <p class="text-left m-0">{{ date }}</p>
             </div>
-            <div class="col-lg my-auto">
+            <div class="col-lg mt-2 py-1">
                 <p class="text-center m-0">
                     <span class="badge badge-success">{{ number_day }}</span> day of year
                 </p>
             </div>
-            <div class="col-lg my-auto">
+            <div class="col-lg mt-2 py-1">
                 {% if quote %}
                 <p class="text-right m-0">{{ quote.text }} – <em>{{ quote.author }}</em></p>
                 {% else %}
