@@ -17,11 +17,11 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views
 
-from core_app import views as core_app_views
+from accounts import views as accounts_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('signup/', core_app_views.signup, name='signup'),
+    path('signup/', accounts_view.signup, name='signup'),
 ]
