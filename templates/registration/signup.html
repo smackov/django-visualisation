@@ -17,17 +17,28 @@
     {% csrf_token %}
     <h1 class="h3 my-3 font-weight-normal">Sign up</h1>
 
-    {% render_field form.username class+="form-control" placeholder="Create username" %}
-
+    {% render_field form.username class+="form-control" placeholder="Enter username" %}
     <div class="my-1">
-    {% for error in form.username.errors %}
-    <p class="text-danger text-left"><small>{{ error }}</small></p>
-    {% endfor %}
+        {% for error in form.username.errors %}
+            <p class="text-danger text-left"><small>{{ error }}</small></p>
+        {% endfor %}
+    </div>
+
+    {% render_field form.email class+="form-control" placeholder="Enter email" %}
+    <div class="my-1">
+        {% for error in form.email.errors %}
+            <p class="text-danger text-left"><small>{{ error }}</small></p>
+        {% endfor %}
     </div>
     
-    {% render_field form.password1 class+="form-control form-top-rounded" placeholder="Create password" %}
-    {% render_field form.password2 class+="form-control form-bottom-rounded" placeholder="Enter password again" %}
+    {% render_field form.password1 class+="form-control" placeholder="Enter password" %}
+    <div class="my-1">
+        {% for error in form.password1.errors %}
+            <p class="text-danger text-left m-0 p-0"><small>{{ error }}</small></p>
+        {% endfor %}
+    </div> 
 
+    {% render_field form.password2 class+="form-control" placeholder="Enter password again" %}
     <div class="my-1">
     {% for error in form.password2.errors %}
         <p class="text-danger text-left m-0 p-0"><small>{{ error }}</small></p>
@@ -35,8 +46,7 @@
     </div>
 
 
-    <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Registrate</button>
-    <!-- <input type="hidden" name="next" value="{{ next }}" /> -->
+    <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Register</button>
     <p class="mt-2 mb-3 text-muted">
         Do you have the account?
         <a class="text-decoration-none" href="{% url 'login' %}">Sign in</a>
