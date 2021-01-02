@@ -12,7 +12,6 @@ class UserTracks:
     def __init__(self, user):
         self.__user = user
         self.__tracks = Track.objects.filter(author=user)
-        print('UserTracks class')
 
     def __query_tracks_for_period(self, period):
         "Query the tracks from the starting day to the trailing day."
