@@ -139,6 +139,13 @@ class IndexTest(TestCase):
         ).aggregate(
             Sum('duration')
         )
+        
+        if worked_time_for_current_month['duration__sum'] == None:
+            # If there aren't any worked time for current month change
+            # worked time value to '0'. Django ORM returns 'None' if 
+            # there aren't anything
+            worked_time_for_current_month['duration__sum'] = 0
+        
         worked_time_for_last_month = 36 - \
             worked_time_for_current_month['duration__sum'] / 2
 
