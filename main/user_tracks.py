@@ -84,7 +84,8 @@ class UserTracks:
             total_work_time = self.__count_total_work_time(
                 tracks=tracks, with_fraction_part=True)
             # Add day tracks and worked time to the context
-            new_day = {'weekday': day.strftime('%A'),
+            new_day = {'date': day.strftime('%d %B'),
+                       'weekday': day.strftime('%A'),
                        'total_work_time': total_work_time,
                        'tracks': tracks}
             context.append(new_day)

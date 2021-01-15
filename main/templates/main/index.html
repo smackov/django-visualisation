@@ -122,9 +122,10 @@
     <!-- DAY -->
     <div class="col-lg d-flex flex-column my-2 p-0 px-2 mx-0 border-right">
 
-        <h6 class="text-center mb-4">
+        <h6 class="text-center my-1">
             < {{ day.weekday }} />
         </h6>
+        <p class="text-center mb-3"><small><em>{{ day.date }}</em></small></p>
 
         {% if day.tracks %}
 
