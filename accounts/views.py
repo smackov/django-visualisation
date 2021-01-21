@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 from .forms import SignUpForm
 from .models import GuestModeCounter
+from .services import populate_user
 
 
 def signup(request):
@@ -40,7 +41,8 @@ def guest_mode(request):
     # Create new guest user with 'counter' suffix
     user = User.objects.create_user(username=f'Guest {counter}',
                                     password=f'KJn424kNKJl{counter}')
-    # TODO:Populate new guest account by tasks and tracks
+    # Populate new guest account by tasks and tracks
+    populate_user(user)
     # Login new user
     login(request, user)
     # Grow our counter for nest guest users
