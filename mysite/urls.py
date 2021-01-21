@@ -24,4 +24,5 @@ urlpatterns = [
     path('', include('main.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('signup/', accounts_view.signup, name='signup'),
+    path('guest_mode/', accounts_view.guest_mode, name='guest_mode'),
 ]
