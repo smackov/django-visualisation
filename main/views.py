@@ -14,23 +14,30 @@ from .user_tracks import UserTracks
 
 
 def index(request):
-    "The general page with common statistic."
-    context = {}
-
-    if request.user.is_authenticated:
-        userTracks = UserTracks(request.user)
-        context = {
-            'week_data': get_week_information(request.user),
-            'last_weeks': get_last_four_weeks(request.user),
-            'statistic': {
-                'current_week': userTracks.work_time_current_week(),
-                'current_month': userTracks.work_time_current_month(),
-                'last_month': userTracks.work_time_last_month(),
-                'for_ever': userTracks.work_time_for_ever(),
-            },
-            'current_week': userTracks.current_week_detail(),
-        }
-
+    """The general page.
+    
+    If user is authenticated to show user dashboard else show
+    welcome page."""
+    # Check is user authenticated
+    if not request.user.is_authenticated:
+        # If user isn't authenticated then show him welcome page
+        return render(request, 'main/welcome.html')
+    # Else show to user dashboard with him statistic of work
+    # Retrieve all tracks of current user
+    userTracks = UserTracks(request.user)
+    # Populate context with user's data
+    context = {
+        'week_data': get_week_information(request.user),
+        'last_weeks': get_last_four_weeks(request.user),
+        'statistic': {
+            'current_week': userTracks.work_time_current_week(),
+            'current_month': userTracks.work_time_current_month(),
+            'last_month': userTracks.work_time_last_month(),
+            'for_ever': userTracks.work_time_for_ever(),
+        },
+        'current_week': userTracks.current_week_detail(),
+    }   
+    # Return index page with dashboard
     return render(request, 'main/index.html', context)
 
 

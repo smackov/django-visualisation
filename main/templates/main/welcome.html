@@ -1,0 +1,52 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}
+<title>Visualization | Welcome page</title>
+{% endblock title %}
+
+
+{% block content %}
+
+<div class="row mt-5 mb-1">
+    <div class="col-lg-4 border-right">
+        <h1 class="h3 text-center mb-4">The Visualization</h1>
+        <p>
+            <span class="badge badge-info">Visualization</span> - the site for tracking your productivity. It's a good
+            tool to visual your work time.
+            Beneath you can see screen from index page of the site. It's dashboard showing your information about your
+            work.
+        </p>
+    </div>
+    <div class="col-lg-4 border-right">
+        <h1 class="h3 text-center mb-4">Join us</h1>
+        <div class="w-50 mx-auto">
+            <a href="{% url 'login' %}" class="btn btn-lg btn-primary btn-block mt-5" type="submit">Sign in</a>
+        </div>
+        <div class="w-50 mx-auto">
+            <a href="{% url 'signup' %}" class="btn btn-lg btn-primary btn-block mt-5" type="submit">Sign up</a>
+        </div>
+        <div class="w-50 mx-auto">
+            <a href="{% url 'guest_mode' %}" class="btn btn-lg btn-primary btn-block mt-5" type="submit">Guest mode</a>
+        </div>
+        <div class="mx-2">
+            <p class="mt-4">
+                <strong>Tip: </strong>
+                The <span class="badge badge-info">Guest mode</span> let you try and evaluate <span
+                    class="badge badge-info">Visualization</span> without registration.
+            </p>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <h1 class="h3 text-center mb-4">The Dragon</h1>
+        {% load static %}
+        <img class="mx-auto d-block w-75" src="{% static 'img/clipart-dragon.png' %}" alt="">
+        <div class="mx-2">
+            <p class="mt-4">
+                <strong>Tip: </strong>
+                The <span class="badge badge-info">Dragon</span> is one of strongest creature in the world!
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
