@@ -34,19 +34,18 @@ class TrackForm(forms.ModelForm):
                 attrs={'class': 'form-control', 'min': 1, 'max': 20,
                        'value': False, 'class': 'form-control',
                        'placeholder': 'Pomodoros'}),
-            'date': DateInput(
-                attrs={'class': 'form-control', 'type': 'date',
-                       'value': date.today().isoformat()}),
-        }
+            'date': DateInput(attrs={'class': 'form-control', 'type': 'date'})}
 
     def __init__(self, *args, **kwargs):
         # Get current user
         user = kwargs.pop('user')
-
         # Call super __init__ function
         super().__init__(*args, **kwargs)
-
+        # Set date
+        self.date = date.today().isoformat()
         # Set appropriate queryset containing only Tasks belong to the
         # current User
         self.fields['id_task'].queryset = Task.objects.filter(author=user)
         self.fields['id_rate'].initial = Rate.objects.get(name='Good')
+        print(dir(self.fields['date']))
+        self.fields['date'].initial = date.today().isoformat()
