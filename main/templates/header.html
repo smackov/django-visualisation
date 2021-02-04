@@ -12,9 +12,9 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
 
         {% if user.is_authenticated %}
-        <ul class="navbar-nav">
+        <ul class="navbar-nav" id="navbar">
             <li class="nav-item">
-                <a class="nav-link active" href="{% url 'add_track' %}">/add track</a>
+                <a class="nav-link" href="{% url 'add_track' %}">/add track</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'add_task' %}">/add task</a>
@@ -24,9 +24,9 @@
 
 
         {% if user.is_authenticated %}
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-auto" id="navbar">
             <li class="nav-item">
-                <a class="nav-link active">{ Hello, {{ user.username }} }</a>
+                <a class="nav-link disabled text-white">{ Hello, {{ user.username }} }</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'logout' %}">/logout</a>
