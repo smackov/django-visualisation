@@ -65,12 +65,12 @@
                             {{ task.name }}
                         </li>
                         <a href="{{ task.get_absolute_url }}" class="ml-auto text-body">
-                            <li class="list-group-item border-right-0 border-bottom-0 border-top-0">
+                            <li class="list-group-item h-100 border-right-0 border-bottom-0 border-top-0">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         </li>
                         </a>
                         <a href="{% url 'delete_task' task.id %}" class="text-body">
-                            <li class="list-group-item border-right-0 border-bottom-0 border-top-0">
+                            <li class="list-group-item h-100 border-right-0 border-bottom-0 border-top-0">
                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
                             </li>
                         </a>
