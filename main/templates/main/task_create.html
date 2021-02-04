@@ -36,7 +36,7 @@
 
         <form method='POST' class="my-2 mx-1">
             <div class="form-group">
-                <h4 class="text-center">Create a new task</h4>
+                <h4 class="text-center headings"><span class="underline--magical pb-2">Create a new task</span></h4>
             </div>
             {% csrf_token %}
 
@@ -54,9 +54,9 @@
 
     <div class="col-lg py-3">
         <div class="my-2">
-            <h4 class="text-center">List of all tasks</h4>
+            <h4 class="text-center headings"><span class="underline--magical pb-2">List of all tasks</span></h4>
         </div>
-        <div class="mx-5 mt-4">
+        <div class="list_of_tasks mx-5 mt-4">
             <ul class="list-group">
                 {% for task in tasks %}
                 <li class="list-group-item p-0">

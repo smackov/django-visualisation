@@ -10,7 +10,7 @@ body {
 
 :root {
     --main-color: rgb(12, 6, 36);
-    --light-color:  #dfdfe2;
+    --light-color: #dfdfe2;
     --bg-light: #fff;
     --footer-height: 40px;
 }
@@ -64,3 +64,65 @@ body {
 .form-update {
     max-width: 400px;
 }
+
+/* FOR MOBILE DEVICES */
+
+@media (max-width: 576px) {
+    .container, .border, .border-right, .border-left, .border-top, .border-bottom {
+        border: none!important;
+    }
+    .row {
+        border-bottom: 2px solid #dee2e6!important;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+    }
+    .row > .flex-column, .col-lg-3, .col-lg-4 {
+        border-bottom: 1px solid #dee2e6!important;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+    }
+    .list_of_tasks {
+        margin-right: 0rem!important;
+        margin-left: 0rem!important;
+    }
+    .date, .quote {
+        text-align: center!important;
+    }
+}
+
+
+/*================================================
+Pretty headers underlines
+*/
+.heading {
+  font-family: "Playfair Display", serif;
+  font-size: 10vw;
+}
+
+.subheading {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1em;
+  line-height: 1.5;
+}
+
+@media screen and (min-width: 40em) {
+  .heading {
+    font-size: 6vw;
+  }
+
+  .subheading {
+    font-size: 1.75vw;
+  }
+}
+
+.underline--magical {
+  background-image: linear-gradient(120deg, #818dff 0%, #8fd3f4 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.2em;
+  background-position: 0 88%;
+  transition: background-size 0.25s ease-in;
+  &:hover {
+    background-size: 100% 88%;
+  }
+}
+/*==================================================*/
