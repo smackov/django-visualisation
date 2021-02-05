@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.aggregates import Max
 from django.views.generic import CreateView, UpdateView, DeleteView
 
-from .form import TaskForm, TrackForm
+from .forms import TaskForm, TrackForm
 from .models import Task, Track, Rate, Quote
 from .services import get_week_information, get_last_four_weeks
 from .user_tracks import UserTracks

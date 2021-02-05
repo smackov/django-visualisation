@@ -6,19 +6,10 @@ from django import forms
 from .models import Task, Track, Rate
 
 
-class TaskForm(forms.ModelForm):
-    "The form for objects of the Task class"
-
-    class Meta:
-        model = Task
-        fields = ['name', ]
-        widgets = {'name': TextInput(attrs={'class': 'form-control', 'autofocus': 1,
-                                            'placeholder': 'A new task ...'})}
-
-
 class TrackForm(forms.ModelForm):
-    "The form for objects of the Track class"
-
+    """
+    The form for 'Track' class objects.
+    """
     id_task = forms.ModelChoiceField(
         widget=Select(attrs={'class': 'form-control', 'autofocus': 1, }),
         queryset=None, empty_label='Select the task', to_field_name="")
@@ -49,3 +40,14 @@ class TrackForm(forms.ModelForm):
         self.fields['id_rate'].initial = Rate.objects.get(name='Good')
         print(dir(self.fields['date']))
         self.fields['date'].initial = date.today().isoformat()
+
+
+class TaskForm(forms.ModelForm):
+    """
+    The form for 'Task' class objects.
+    """
+    class Meta:
+        model = Task
+        fields = ['name', ]
+        widgets = {'name': TextInput(attrs={'class': 'form-control', 'autofocus': 1,
+                                            'placeholder': 'A new task ...'})}
