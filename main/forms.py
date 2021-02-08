@@ -22,7 +22,7 @@ class TrackForm(forms.ModelForm):
         fields = ('duration', 'date', 'id_task', 'id_rate')
         widgets = {
             'duration': NumberInput(
-                attrs={'class': 'form-control', 'min': 1, 'max': 20,
+                attrs={'class': 'form-control', 'min': 1, 'max': 16,
                        'value': False, 'class': 'form-control',
                        'placeholder': 'Pomodoros'}),
             'date': DateInput(attrs={'class': 'form-control', 'type': 'date'})}
@@ -40,6 +40,15 @@ class TrackForm(forms.ModelForm):
         self.fields['id_rate'].initial = Rate.objects.get(name='Good')
         print(dir(self.fields['date']))
         self.fields['date'].initial = date.today().isoformat()
+
+    def clean_duration(self):
+        data = self.cleaned_data['duration']
+        if data < 1 or data > 16:
+            msg = 'Duration field has to be greater than 0 and less then 17 pomodoros'
+            self.add_error('duration', msg)
+            print(msg)
+            raise forms.ValidationError(msg)
+        return data
 
 
 class TaskForm(forms.ModelForm):
