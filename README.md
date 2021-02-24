@@ -10,13 +10,13 @@ Beneath you can see screen from index page of the site. It's dashboard showing y
 
 * ___Backend___: Python 3.8 / Django 3.x
 * ___Frontend___: Bootstrap 4.5
-* ___System___: nginx 1.8 / Supervisor / Ubuntu Server
+* ___System___: nginx 1.8 / Gunicorn / Supervisor / Ubuntu Server
 * ___Server host___: Digital Ocean
 * ___Database___: PostgreSQL
 
 ## Description
 
-Данный сайт предназачен для записи и визуализации выполненных задач (task). Вы можете создать задачу (task), например, 'English'. Работая над задачей и выделяя на нее время, вы можете записывать потраченное время в собственный профиль, чтобы видеть сколько времени вы тратите на выполнение данной задачи, и когда вы это делали. Поработав над задачей 1 час (или 2 помидорки по 25-30 минут) вы создаете трек (track), который о говорит о том, что Вы в определенный день занимались определенной задачей определенное количество времени с определенным результатом (rate).
+This site is designed to record and visualize completed tasks. You can create a task like `English`. As you work on a task and allocate time for it, you can record the time spent in your own profile to see how much time you spend on a given task, and when you did it. After working on the task for 1 hour _(or 2 tomatoes for 25-30 minutes)_, you create a `track`, which says that on a certain day you were engaged in a certain task for a certain amount of time with a certain result (`rate`).
 
 ## Dashboard at index page
 
@@ -26,4 +26,5 @@ The dashboard can show you how many time you have spent for work. Beneath you ca
 
 This paned contains 3 parts:
 * _Week status_ - it shows how many time we have been working in current week. At this example we have 11 hours of 30 hours that we planned to work.
-* _Last 4 weeks_ - it shows how many time we worked in last 4 week, excluding current week. It's a good overview to look our
+* _Last 4 weeks_ - it shows how many time we worked in last 4 week, excluding current week. It's a good overview to look our past efforts.
+* _Statistic_ - it's more general representation of our work. At this point statistic shows how many hours we spent for work in the current month, last month or at all.
