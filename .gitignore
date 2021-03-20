@@ -78,3 +78,6 @@ local_settings.py
 
 # Text backup files
 *.bak
+
+# TODO files
+.TODO
